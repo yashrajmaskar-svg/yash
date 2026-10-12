@@ -4,667 +4,424 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Love Portal ❤️</title>
+<title>Our Universe of Memories ❤️</title>
 
 <style>
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --pink: #ff8ed4;
-  --purple: #a78bfa;
-  --white: #fff7ff;
 }
 
 body {
-  font-family: Georgia, "Times New Roman", serif;
-  color: var(--white);
-  background: #080719;
+  min-height: 100vh;
+  background: #02020d;
+  color: white;
+  font-family: Georgia, serif;
   overflow-x: hidden;
-  scroll-behavior: smooth;
 }
 
-body::before {
-  content: "";
+#stars {
   position: fixed;
   inset: 0;
-  z-index: -2;
-  background:
-    radial-gradient(ellipse at 15% 20%, #39205c 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 70%, #32183f 0%, transparent 40%),
-    linear-gradient(145deg, #080719, #15102e, #080719);
-}
-
-.stars {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(2px 2px at 20% 30%, white 70%, transparent),
-    radial-gradient(1px 1px at 70% 20%, white 70%, transparent),
-    radial-gradient(2px 2px at 85% 65%, #ffb9eb 70%, transparent),
-    radial-gradient(1px 1px at 40% 80%, white 70%, transparent),
-    radial-gradient(2px 2px at 60% 50%, #d5c3ff 70%, transparent);
-  background-size: 180px 180px;
-  animation: starsMove 35s linear infinite;
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#9c9cff 1px, transparent 1px);
+  background-size: 70px 70px, 110px 110px;
+  background-position: 0 0, 30px 40px;
+  animation: drift 35s linear infinite;
 }
 
-@keyframes starsMove {
-  from { background-position: 0 0; }
-  to { background-position: 180px 180px; }
+@keyframes drift {
+  to { background-position: 500px 700px, -300px 500px; }
+}
+
+header, main, footer {
+  position: relative;
+  z-index: 1;
 }
 
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 17px 7%;
-  background: #09071cbb;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #ffffff14;
-}
-
-.logo {
-  color: #ffd2f1;
-  font-size: 1.15rem;
-  letter-spacing: 1px;
-}
-
-header a {
-  color: #eadfff;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-section {
-  min-height: 100vh;
-  padding: 110px 8% 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-}
-
-.hero {
-  position: relative;
-  overflow: hidden;
-}
-
-.eyebrow {
-  color: #e0baff;
-  letter-spacing: 4px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  margin-bottom: 20px;
+  padding: 48px 18px 18px;
 }
 
 h1 {
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  line-height: 1.05;
-  max-width: 950px;
-  background: linear-gradient(100deg, #fff, #ffc1e9, #c7b7ff);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  font-size: clamp(2rem, 6vw, 3.7rem);
+  color: #f3d6ff;
+  text-shadow: 0 0 15px #a64dff, 0 0 35px #6633ff;
 }
 
-h2 {
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  margin-bottom: 18px;
-  color: #ffd8f1;
+.subtitle {
+  margin: 16px auto 10px;
+  max-width: 600px;
+  color: #c9c6ee;
+  line-height: 1.7;
+  font-size: 1.05rem;
 }
 
-p {
-  line-height: 1.9;
-  color: #e1d9f3;
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
-.hero-text {
-  max-width: 650px;
-  margin: 25px auto 30px;
-  font-size: 1.08rem;
+#universe {
+  transition: opacity .5s, transform .7s;
 }
 
-.portal {
-  width: min(270px, 70vw);
-  height: min(270px, 70vw);
-  border-radius: 50%;
-  margin: 30px 0;
+.portals {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 25px;
+  margin: 35px auto;
+}
+
+.portal-card {
+  text-align: center;
+  padding: 20px 12px;
+  border: 1px solid #5e4b94;
+  border-radius: 22px;
+  background: rgba(14, 10, 38, .78);
+  box-shadow: 0 0 25px rgba(100, 50, 255, .15);
+  transition: transform .3s, border-color .3s;
+}
+
+.portal-card:hover {
+  transform: translateY(-7px);
+  border-color: #e3b7ff;
+}
+
+.blackhole {
+  position: relative;
+  display: block;
+  width: 155px;
+  height: 155px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
   background:
-    radial-gradient(circle, #ffc5ec35 0%, #a78bfa1a 40%, transparent 68%);
-  border: 2px solid #e6c5ff;
-  box-shadow:
-    0 0 20px #c48cff,
-    0 0 55px #9b5dff80,
-    inset 0 0 35px #d7a5ff70;
-  animation: portalGlow 3s ease-in-out infinite alternate;
+    radial-gradient(ellipse at center,
+      #000 0 25%,
+      #090018 30%,
+      #6b27ff 39%,
+      #f2b2ff 43%,
+      #8c48ff 48%,
+      #171044 58%,
+      transparent 70%);
+  filter: drop-shadow(0 0 15px #8a35ff);
+  animation: float 4s ease-in-out infinite;
 }
 
-.portal-inner {
-  width: 75%;
-  height: 75%;
+.blackhole::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
   border-radius: 50%;
-  border: 2px dashed #ffb7e6;
-  display: grid;
-  place-items: center;
-  font-size: 4rem;
-  animation: spin 24s linear infinite;
+  border: 4px solid transparent;
+  border-top-color: #ffd2ff;
+  border-bottom-color: #a16aff;
+  transform: rotate(-25deg) scaleY(.55);
+  box-shadow: 0 0 14px #b98cff;
+  animation: spin 5s linear infinite;
 }
 
-@keyframes portalGlow {
-  from { transform: scale(0.97); filter: brightness(0.9); }
-  to { transform: scale(1.03); filter: brightness(1.25); }
+.blackhole::after {
+  content: "";
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #000;
+  box-shadow: 0 0 25px 10px #080018;
+}
+
+.portal-card:nth-child(2) .blackhole {
+  filter: hue-rotate(45deg) drop-shadow(0 0 15px #ff65c8);
+}
+
+.portal-card:nth-child(3) .blackhole {
+  filter: hue-rotate(180deg) drop-shadow(0 0 15px #44cfff);
+}
+
+.portal-card:nth-child(4) .blackhole {
+  filter: hue-rotate(270deg) drop-shadow(0 0 15px #ffb94d);
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to { transform: rotate(335deg) scaleY(.55); }
 }
 
-.button {
-  display: inline-block;
-  padding: 15px 27px;
-  margin: 10px 5px;
-  border: 1px solid #f2c5ff;
-  border-radius: 50px;
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.portal-card h2 {
+  font-size: 1.3rem;
+  color: #f4d9ff;
+  margin-bottom: 10px;
+}
+
+.portal-card p {
+  color: #c6c3df;
+  font-size: .95rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.enter-button, .back-button {
+  border: 1px solid #d8b4ff;
+  border-radius: 25px;
+  padding: 11px 20px;
   color: white;
-  background: linear-gradient(100deg, #873cc8, #c04eaa);
-  box-shadow: 0 0 25px #bc69ff50;
-  font-family: inherit;
+  background: linear-gradient(110deg, #4921a0, #9b37a8);
+  cursor: pointer;
   font-size: 1rem;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.25s, box-shadow 0.25s;
 }
 
-.button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 35px #e49aff90;
+.enter-button:hover, .back-button:hover {
+  box-shadow: 0 0 18px #b86bff;
 }
 
-.secondary {
-  background: #ffffff0a;
-  border-color: #bda9ff;
-}
-
-.container {
-  width: 100%;
-  max-width: 1000px;
-}
-
-.intro {
-  max-width: 720px;
-  margin: 0 auto 35px;
-}
-
-.cards {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 22px;
-  margin-top: 25px;
-}
-
-.card {
-  text-align: left;
-  padding: 24px;
-  border-radius: 23px;
-  border: 1px solid #d6b5ff35;
-  background: linear-gradient(145deg, #ffffff10, #ffffff04);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 15px 45px #00000020;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: #e7baff;
-}
-
-.card h3 {
-  color: #ffd1f0;
-  margin-bottom: 12px;
-  font-size: 1.35rem;
-}
-
-.photo {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 15px;
-  margin-bottom: 18px;
-  background: linear-gradient(135deg, #38254e, #201733);
-  border: 1px solid #ffffff20;
-}
-
-.photo-note {
-  color: #cbb9e8;
-  font-size: 0.83rem;
-  margin-top: 10px;
-}
-
-.memory-card {
-  cursor: pointer;
-}
-
-.memory-message {
+#memory {
   display: none;
-  margin-top: 14px;
-  color: #ffd6f1;
-  border-top: 1px solid #ffffff25;
-  padding-top: 14px;
-}
-
-.memory-card.open .memory-message {
-  display: block;
-  animation: appear 0.4s ease;
+  text-align: center;
+  padding: 15px 0 45px;
+  animation: appear .8s ease;
 }
 
 @keyframes appear {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.promise-box {
-  width: 100%;
+#memory h2 {
+  color: #f0d0ff;
+  font-size: clamp(2rem, 6vw, 3rem);
+  margin: 25px 0 12px;
+  text-shadow: 0 0 15px #873cff;
+}
+
+#memoryText {
+  color: #d8d2ef;
+  line-height: 1.8;
   max-width: 650px;
-  padding: 35px 25px;
-  border: 1px solid #f3b7e4;
-  border-radius: 28px;
-  background: #ffffff08;
-  box-shadow: 0 0 45px #d46bff20;
+  margin: 0 auto 25px;
+  padding: 0 10px;
 }
 
-.heart {
-  font-size: 5rem;
-  cursor: pointer;
-  display: inline-block;
-  margin: 15px;
-  filter: drop-shadow(0 0 18px #ff69bd);
-  animation: heartbeat 1.4s infinite;
-  background: transparent;
-  border: 0;
+.photo-frame {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 10px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #d9aaff, #4d8cff, #ed9dff);
+  box-shadow: 0 0 35px #613bba;
 }
 
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-
-.hidden-promises {
-  display: none;
-  margin-top: 20px;
-  text-align: left;
-}
-
-.hidden-promises.show {
+#memoryPhoto {
   display: block;
-  animation: appear 0.7s ease;
+  width: 100%;
+  max-height: 70vh;
+  min-height: 220px;
+  object-fit: contain;
+  background: #090719;
+  border-radius: 15px;
 }
 
-.hidden-promises p {
-  margin: 12px 0;
-  padding: 12px;
-  background: #ffffff09;
-  border-radius: 12px;
+#photoError {
+  display: none;
+  padding: 20px;
+  color: #ffd5d5;
+  line-height: 1.7;
 }
 
-.final-photo {
-  width: min(450px, 100%);
-  height: 310px;
-  object-fit: cover;
-  border-radius: 25px;
-  margin: 25px 0;
-  border: 2px solid #f0baff;
-  box-shadow: 0 0 35px #bb75ff45;
-}
-
-.final-message {
-  max-width: 700px;
-  margin: 15px auto;
-  font-size: 1.15rem;
+#memoryCaption {
+  color: #e7cfff;
+  font-style: italic;
+  margin: 18px auto 25px;
+  line-height: 1.7;
 }
 
 footer {
-  padding: 28px 15px;
+  padding: 25px 15px 35px;
   text-align: center;
-  color: #c3b4dd;
-  border-top: 1px solid #ffffff15;
-  font-size: 0.9rem;
+  color: #aaa4ce;
+  line-height: 1.8;
+  font-size: .9rem;
 }
 
-.heart-float {
-  position: fixed;
-  bottom: -40px;
-  pointer-events: none;
-  z-index: 20;
-  animation: floatUp 4s linear forwards;
-}
-
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh) rotate(35deg);
-    opacity: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  header { padding: 15px 5%; }
-  .logo { font-size: 1rem; }
-  header a { font-size: 0.8rem; }
-  section { padding: 100px 6% 55px; }
-  .hero-text { font-size: 1rem; }
-  .card { padding: 19px; }
+@media (max-width: 480px) {
+  header { padding-top: 35px; }
+  main { padding: 12px; }
+  .portals { gap: 18px; }
+  .blackhole { width: 140px; height: 140px; }
 }
 </style>
 </head>
 
 <body>
-<div class="stars"></div>
+<div id="stars"></div>
 
 <header>
-  <div class="logo">✦ THE LOVE PORTAL</div>
-  <a href="#home">Our Universe ❤️</a>
+  <h1>Our Universe of Memories ✨</h1>
+  <p class="subtitle">
+    Somewhere among billions of stars, there is a universe
+    that means everything to me — my childhood, my parents,
+    and the memories that made me who I am. ❤️
+  </p>
 </header>
 
-<!-- PORTAL 1: THE BEGINNING -->
-<section class="hero" id="home">
-  <p class="eyebrow">A little universe made with love</p>
-
-  <h1>For My Aai &amp; Baba</h1>
-
-  <p class="hero-text">
-    There are billions of stars in the universe,
-    but for me, the brightest ones have always been you.
-    This little world is my way of saying something
-    that words can never fully explain.
-  </p>
-
-  <div class="portal">
-    <div class="portal-inner">❤️</div>
-  </div>
-
-  <button class="button" onclick="beginJourney()">
-    Begin Our Journey ✨
-  </button>
-
-  <p class="photo-note">Two people. One home. Endless love.</p>
-</section>
-
-<!-- PORTAL 2: GRATITUDE -->
-<section id="gratitude">
-  <div class="container">
-    <p class="eyebrow">Portal 01 · My First Home</p>
-    <h2>Thank You, Aai &amp; Baba</h2>
-
-    <p class="intro">
-      Before I knew anything about this world, I knew your love.
-      You have given me more than I can ever count.
-      Some things may go unnoticed, but nothing you do for me
-      is too small to matter.
+<main>
+  <section id="universe">
+    <p class="subtitle" style="text-align:center">
+      Choose a black hole and travel into a memory...
     </p>
 
-    <div class="cards">
-      <article class="card">
-        <h3>🌷 For Aai</h3>
-        <p>
-          Aai, thank you for your care, your patience,
-          your warmth, and the little things you do every day.
-          You make ordinary moments feel special.
-          No matter how much I grow, a part of me will
-          always need your love and blessings.
-        </p>
+    <div class="portals">
+
+      <article class="portal-card">
+        <button class="blackhole" onclick="openMemory(0)"
+          aria-label="Enter childhood memory"></button>
+        <h2>My Little Universe 👶</h2>
+        <p>Back to the days when my story was just beginning.</p>
+        <button class="enter-button" onclick="openMemory(0)">
+          Enter Memory ✨
+        </button>
       </article>
 
-      <article class="card">
-        <h3>🌟 For Baba</h3>
-        <p>
-          Baba, thank you for your support, your guidance,
-          and for trying to give me a better future.
-          I may not always say it, but I notice your efforts.
-          You teach me to keep going, even when things are hard.
-        </p>
+      <article class="portal-card">
+        <button class="blackhole" onclick="openMemory(1)"
+          aria-label="Enter father's memory"></button>
+        <h2>My Father 🌟</h2>
+        <p>A special place for the man whose presence means so much.</p>
+        <button class="enter-button" onclick="openMemory(1)">
+          Enter Memory ✨
+        </button>
       </article>
 
-      <article class="card">
-        <h3>🏡 For Both of You</h3>
-        <p>
-          Thank you for being my family, my support,
-          and a place where I can keep learning and growing.
-          I know I still have so much to learn,
-          but I hope I can make you proud one day.
-        </p>
+      <article class="portal-card">
+        <button class="blackhole" onclick="openMemory(2)"
+          aria-label="Enter mother's memory"></button>
+        <h2>My Mother 💖</h2>
+        <p>A universe of warmth, care, and countless memories.</p>
+        <button class="enter-button" onclick="openMemory(2)">
+          Enter Memory ✨
+        </button>
       </article>
+
+      <article class="portal-card">
+        <button class="blackhole" onclick="openMemory(3)"
+          aria-label="Enter family memory"></button>
+        <h2>Our Little World 🏡</h2>
+        <p>Three hearts, one family, and a lifetime of memories.</p>
+        <button class="enter-button" onclick="openMemory(3)">
+          Enter Memory ✨
+        </button>
+      </article>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PORTAL 3: MEMORY UNIVERSE -->
-<section id="memories">
-  <div class="container">
-    <p class="eyebrow">Portal 02 · Our Little Galaxy</p>
-    <h2>Memories That Feel Like Magic</h2>
-
-    <p class="intro">
-      Every family has a universe of its own.
-      These are a few little windows into ours.
-      Tap a memory card to reveal its message.
-    </p>
-
-    <div class="cards">
-      <article class="card memory-card"
-        onclick="toggleMemory(this)">
-        <img class="photo" src="aai.jpg"
-          alt="Photo with Aai"
-          onerror="this.style.display='none'">
-        <h3>🌷 Aai's Universe</h3>
-        <p>My comfort, my care, my Aai.</p>
-        <div class="memory-message">
-          No matter how big the world becomes,
-          your love will always feel like home.
-          Thank you for being you, Aai. ❤️
-        </div>
-      </article>
-
-      <article class="card memory-card"
-        onclick="toggleMemory(this)">
-        <img class="photo" src="baba.jpg"
-          alt="Photo with Baba"
-          onerror="this.style.display='none'">
-        <h3>🌟 Baba's Universe</h3>
-        <p>My guide, my strength, my Baba.</p>
-        <div class="memory-message">
-          Thank you for standing beside me
-          and helping me learn about life.
-          Your support means more than I say. ❤️
-        </div>
-      </article>
-
-      <article class="card memory-card"
-        onclick="toggleMemory(this)">
-        <img class="photo" src="childhood.jpg"
-          alt="Childhood memory"
-          onerror="this.style.display='none'">
-        <h3>🪄 Little Me</h3>
-        <p>Once little, always your child.</p>
-        <div class="memory-message">
-          I may grow taller, learn new things,
-          and follow my own dreams,
-          but I will always be your child.
-        </div>
-      </article>
-
-      <article class="card memory-card"
-        onclick="toggleMemory(this)">
-        <img class="photo" src="family.jpg"
-          alt="Family photograph"
-          onerror="this.style.display='none'">
-        <h3>🏡 Our Little World</h3>
-        <p>My favourite people, my favourite place.</p>
-        <div class="memory-message">
-          The best part of a memory is not
-          how perfect it looks. It is the people
-          who made it worth remembering. ❤️
-        </div>
-      </article>
-    </div>
-
-    <p class="photo-note">
-      Add your own pictures by using the filenames shown in the code.
-    </p>
-  </div>
-</section>
-
-<!-- PORTAL 4: PROMISES -->
-<section id="promises">
-  <div class="container">
-    <p class="eyebrow">Portal 03 · A Promise From My Heart</p>
-    <h2>Open My Heart 💜</h2>
-
-    <div class="promise-box">
-      <p>
-        There are some things I want you to know,
-        even if I don't say them every day.
-      </p>
-
-      <button class="heart" onclick="revealPromises()"
-        aria-label="Reveal my promises">💖</button>
-
-      <p>Tap the heart to discover my promises.</p>
-
-      <div class="hidden-promises" id="promiseList">
-        <p>✨ I will keep learning from my mistakes.</p>
-        <p>✨ I will try my best to work towards my dreams.</p>
-        <p>✨ I will respect you and appreciate your efforts.</p>
-        <p>✨ I will remember the values you teach me.</p>
-        <p>✨ I will try to make you proud through my actions.</p>
-        <p>❤️ And I will never forget how much you mean to me.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTAL 5: THE FINAL REVEAL -->
-<section id="final">
-  <div class="container">
-    <p class="eyebrow">The Last Portal · But Never the End</p>
-    <h2>My Favourite Universe Is You</h2>
-
-    <p class="intro">
-      I made this little world because a normal
-      "thank you" did not feel big enough.
-      So I made a whole universe for the two people
-      who mean so much to me.
-    </p>
-
-    <button class="button" onclick="revealFinal()">
-      Open My Final Surprise 🎁
+  <section id="memory">
+    <button class="back-button" onclick="goBack()">
+      ← Return to the Universe
     </button>
 
-    <div id="finalSurprise" hidden>
-      <img class="final-photo" src="family.jpg"
-        alt="Our family together"
-        onerror="this.style.display='none'">
+    <h2 id="memoryTitle"></h2>
+    <p id="memoryText"></p>
 
-      <p class="final-message">
-        Dear Aai and Baba,
-        <br><br>
-        I don't know what the future will bring,
-        or where life will take me.
-        But wherever I go, I will carry your love,
-        your lessons, and the memories we have made.
-        <br><br>
-        I might not always express my feelings perfectly.
-        I might make mistakes, and I still have a lot to learn.
-        But please know that I am grateful for you.
-        <br><br>
-        If I could choose my family in a thousand different
-        universes, I would still wish for you both.
-        <br><br>
-        <strong>Thank you for being my Aai and Baba.
-        I love you more than this little universe can show. ❤️</strong>
-      </p>
-
-      <p style="margin-top:25px;color:#ffd2f1">
-        Made with all my love, just for you. ✨
-      </p>
-
-      <button class="button" onclick="celebrate()">
-        Fill Our Universe With Love 💕
-      </button>
+    <div class="photo-frame">
+      <img id="memoryPhoto" src="" alt="A special family memory">
+      <div id="photoError">
+        This photo could not be found.<br>
+        Check the filename and upload the photo
+        to the same folder as index.html.
+      </div>
     </div>
-  </div>
-</section>
+
+    <p id="memoryCaption"></p>
+
+    <button class="back-button" onclick="goBack()">
+      ← Explore Another Memory
+    </button>
+  </section>
+</main>
 
 <footer>
-  <p>Made with ❤️ by your child · Our love has no end</p>
+  Made with love, for the people who make my universe beautiful. ❤️
+  <br>
+  No distance, no time, no universe can change these memories.
 </footer>
 
 <script>
-function beginJourney() {
-  document.getElementById("gratitude").scrollIntoView({
-    behavior: "smooth"
-  });
-  createHearts(8);
-}
-
-function toggleMemory(card) {
-  card.classList.toggle("open");
-}
-
-function revealPromises() {
-  const list = document.getElementById("promiseList");
-  list.classList.toggle("show");
-
-  if (list.classList.contains("show")) {
-    createHearts(12);
+const memories = [
+  {
+    title: "My Little Universe 👶",
+    text: "Once upon a time, my journey began. I may not remember every moment from these early days, but this photograph keeps a little piece of my beginning alive.",
+    photo: "childhood.jpg",
+    caption: "The smallest beginning can hold the biggest story. ✨"
+  },
+  {
+    title: "My Father 🌟",
+    text: "A memory of my father, a person who will always have a special place in my universe. Some bonds are stronger than words can explain.",
+    photo: "father.jpg",
+    caption: "One of the stars that lights my journey. ❤️"
+  },
+  {
+    title: "My Mother 💖",
+    text: "A memory of my mother, whose love and care make ordinary moments precious. No matter how big the universe is, some places will always feel like home.",
+    photo: "mother.jpg",
+    caption: "A love that makes the whole universe feel warmer. 🌷"
+  },
+  {
+    title: "Our Little World 🏡",
+    text: "My family is a universe of its own. Every smile, every shared moment, and every memory makes our little world special.",
+    photo: "family.jpg",
+    caption: "Different hearts, one beautiful family. Forever. ❤️"
   }
+];
+
+function openMemory(index) {
+  const memory = memories[index];
+
+  document.getElementById("universe").style.display = "none";
+  document.querySelector("header").style.display = "none";
+  document.getElementById("memory").style.display = "block";
+
+  document.getElementById("memoryTitle").textContent = memory.title;
+  document.getElementById("memoryText").textContent = memory.text;
+  document.getElementById("memoryCaption").textContent = memory.caption;
+
+  const photo = document.getElementById("memoryPhoto");
+  const error = document.getElementById("photoError");
+
+  error.style.display = "none";
+  photo.style.display = "block";
+  photo.src = memory.photo;
+  photo.alt = memory.title;
+
+  photo.onerror = function() {
+    photo.style.display = "none";
+    error.style.display = "block";
+  };
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function revealFinal() {
-  document.getElementById("finalSurprise").hidden = false;
-  document.getElementById("finalSurprise").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-  createHearts(18);
-}
-
-function createHearts(amount) {
-  const symbols = ["💖", "✨", "💕", "💜", "❤️"];
-
-  for (let i = 0; i < amount; i++) {
-    const heart = document.createElement("span");
-    heart.className = "heart-float";
-    heart.textContent = symbols[
-      Math.floor(Math.random() * symbols.length)
-    ];
-
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (16 + Math.random() * 20) + "px";
-    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-
-    document.body.appendChild(heart);
-
-    heart.addEventListener("animationend", () => heart.remove());
-  }
-}
-
-function celebrate() {
-  createHearts(45);
+function goBack() {
+  document.getElementById("memory").style.display = "none";
+  document.getElementById("universe").style.display = "block";
+  document.querySelector("header").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 </script>
-
 </body>
 </html>
