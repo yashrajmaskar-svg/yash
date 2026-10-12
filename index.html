@@ -16,13 +16,15 @@ body {
   min-height: 100vh;
   color: white;
   font-family: Arial, sans-serif;
-  background: radial-gradient(ellipse at center, #15102f 0%, #050510 55%, #000 100%);
+  text-align: center;
+  background: radial-gradient(ellipse at center, #17102f, #050510 60%, #000);
   overflow-x: hidden;
 }
 
 .stars {
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background-image:
     radial-gradient(2px 2px at 20px 30px, white, transparent),
@@ -31,35 +33,31 @@ body {
     radial-gradient(1px 1px at 250px 50px, white, transparent),
     radial-gradient(2px 2px at 300px 200px, #d7baff, transparent);
   background-size: 350px 250px;
-  animation: starMove 35s linear infinite;
+  animation: starsMove 35s linear infinite;
 }
 
-@keyframes starMove {
+@keyframes starsMove {
   from { transform: translateY(0); }
   to { transform: translateY(-250px); }
 }
 
-.page {
+main {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
-  padding: 35px 18px;
-  text-align: center;
+  padding: 25px 15px 40px;
 }
 
 h1 {
-  font-size: clamp(30px, 6vw, 52px);
-  margin: 10px 0;
-  text-shadow: 0 0 20px #8c6bff;
+  font-size: clamp(30px, 6vw, 48px);
+  text-shadow: 0 0 20px #9b70ff;
 }
 
 .subtitle {
-  color: #c9c6e9;
-  margin-bottom: 30px;
+  color: #d0c9f5;
 }
 
 .universe {
-  height: 340px;
+  height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,8 +65,8 @@ h1 {
 }
 
 .blackhole {
-  width: 145px;
-  height: 145px;
+  width: 135px;
+  height: 135px;
   border-radius: 50%;
   background: #000;
   position: relative;
@@ -77,7 +75,6 @@ h1 {
     0 0 20px 8px #ff6cdd,
     0 0 45px 20px #7b4dff,
     0 0 90px 35px #3020b8;
-  transition: transform 1s;
 }
 
 .blackhole::before {
@@ -88,7 +85,6 @@ h1 {
   border: 7px solid transparent;
   border-top-color: #ffb0ee;
   border-bottom-color: #6bdcff;
-  transform: rotate(-25deg);
   filter: drop-shadow(0 0 10px #a15cff);
 }
 
@@ -98,24 +94,14 @@ h1 {
   inset: -34px;
   border-radius: 50%;
   border: 2px solid #8768ff;
-  transform: rotate(35deg) scaleY(.45);
-  opacity: .8;
-}
-
-.spinning {
-  animation: spin 1.2s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg) scale(1); }
-  to { transform: rotate(720deg) scale(1.08); }
+  transform: scaleY(.45) rotate(35deg);
 }
 
 .orbit {
   position: absolute;
   width: 250px;
   height: 90px;
-  border: 1px solid rgba(142, 119, 255, .65);
+  border: 1px solid #987bff99;
   border-radius: 50%;
   transform: rotate(-25deg);
 }
@@ -124,29 +110,37 @@ h1 {
   width: 300px;
   height: 120px;
   transform: rotate(35deg);
-  border-color: rgba(255, 113, 221, .5);
+  border-color: #ff71dd77;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(720deg) scale(1.08); }
 }
 
 button {
+  padding: 14px 25px;
+  margin: 8px;
   border: none;
   border-radius: 30px;
-  padding: 14px 30px;
   color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   background: linear-gradient(90deg, #763cff, #e13ecb);
   box-shadow: 0 0 20px #773dff66;
-  transition: transform .2s, box-shadow .2s;
 }
 
 button:hover {
-  transform: scale(1.05);
   box-shadow: 0 0 28px #c34cff;
 }
 
 button:disabled {
-  opacity: .65;
+  opacity: .6;
   cursor: wait;
 }
 
@@ -155,15 +149,14 @@ button:disabled {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin: 24px auto;
-  max-width: 650px;
+  margin: 25px auto;
 }
 
 .memory-chip {
   border: 1px solid #7770bc;
   border-radius: 22px;
-  padding: 9px 15px;
-  color: #ddd9ff;
+  padding: 10px 15px;
+  color: #e0dcff;
   background: #17142e;
 }
 
@@ -174,44 +167,42 @@ button:disabled {
 .memory-card {
   max-width: 650px;
   margin: 25px auto;
-  padding: 22px;
-  background: rgba(18, 15, 43, .88);
+  padding: 20px;
   border: 1px solid #6553b7;
   border-radius: 22px;
+  background: #12102bea;
   box-shadow: 0 0 35px #643fff33;
 }
 
 #memoryPhoto {
-  display: block;
   width: 100%;
   max-height: 430px;
   object-fit: contain;
-  margin: 20px auto;
   border-radius: 14px;
+  margin: 15px auto;
   background: #080713;
-}
-
-#photoMessage {
-  color: #c9c6e9;
-  line-height: 1.6;
 }
 
 .hidden {
   display: none !important;
 }
 
+#photoMessage {
+  color: #d0c9f5;
+  line-height: 1.7;
+}
+
 footer {
-  color: #9f9abf;
-  margin: 35px 0 10px;
+  margin-top: 35px;
+  color: #a6a0c8;
   font-size: 13px;
 }
 
 @media (max-width: 480px) {
-  .universe { height: 290px; }
-  .blackhole { width: 115px; height: 115px; }
+  .universe { height: 280px; }
+  .blackhole { width: 110px; height: 110px; }
   .orbit { width: 210px; }
   .orbit.two { width: 250px; }
-  .memory-card { padding: 15px; }
 }
 </style>
 </head>
@@ -219,7 +210,7 @@ footer {
 <body>
 <div class="stars"></div>
 
-<main class="page">
+<main>
   <section id="home">
     <h1>🌌 Universe of Memories</h1>
     <p class="subtitle">One universe. Four memories. Infinite feelings.</p>
@@ -230,7 +221,9 @@ footer {
       <div class="blackhole" id="blackhole"></div>
     </div>
 
-    <button id="spinButton" onclick="spin()">🌀 SPIN THE BLACK HOLE</button>
+    <button id="spinButton" onclick="spin()">
+      🌀 SPIN THE BLACK HOLE
+    </button>
 
     <div class="memory-options">
       <span class="memory-chip">🌈 Childhood</span>
@@ -239,15 +232,15 @@ footer {
       <span class="memory-chip">❤️ Family</span>
     </div>
 
-    <p id="status">Let the universe choose your memory...</p>
+    <p id="status">Spin the black hole to discover a memory!</p>
   </section>
 
   <section id="memoryPage">
     <h1 id="memoryTitle">Your Memory</h1>
-    <p class="subtitle" id="memorySubtitle">A little piece of your universe</p>
+    <p class="subtitle" id="memorySubtitle"></p>
 
     <div class="memory-card">
-      <img id="memoryPhoto" class="hidden" alt="Your selected memory">
+      <img id="memoryPhoto" class="hidden" alt="Memory photo">
       <p id="photoMessage"></p>
       <button onclick="goHome()">🌌 Back to Universe</button>
     </div>
@@ -263,33 +256,32 @@ const memories = [
     emoji: "🌈",
     title: "The Magic of Childhood",
     message: "Those little moments, innocent smiles, and happy days will always have a special place in your heart.",
-    files: ["childhood.jpg", "childhood.png", "childhood.jpeg"]
+    files: ["childhood.jpg"]
   },
   {
     name: "Father",
     emoji: "👨",
     title: "My First Hero — Father",
     message: "A father's love, support, and sacrifices make him one of the most special people in our lives.",
-    files: ["father.jpg", "father.png", "father.jpeg"]
+    files: ["father.jpg"]
   },
   {
     name: "Mother",
     emoji: "👩",
     title: "A Mother's Endless Love",
     message: "A mother's love brings comfort, strength, and warmth that stays with us wherever life takes us.",
-    files: ["mother.jpg", "mother.png", "mother.jpeg"]
+    files: ["mother.jpg"]
   },
   {
     name: "Family",
     emoji: "❤️",
     title: "My Beautiful Family",
     message: "Family is where love begins, memories grow, and the heart always finds its way home.",
-    files: ["family.jpg", "family.png", "family.jpeg"]
+    files: ["family.jpg"]
   }
 ];
 
 let spinning = false;
-let photoAttempt = 0;
 let chosenMemory = null;
 
 function spin() {
@@ -302,14 +294,17 @@ function spin() {
   const status = document.getElementById("status");
 
   button.disabled = true;
+  hole.classList.add("spinning");
   status.textContent = "The universe is choosing your memory...";
 
-  hole.classList.add("spinning");
-
   let ticks = 0;
+
   const interval = setInterval(() => {
-    const randomMemory = memories[Math.floor(Math.random() * memories.length)];
-    status.textContent = randomMemory.emoji + " " + randomMemory.name + "...";
+    const preview = memories[
+      Math.floor(Math.random() * memories.length)
+    ];
+
+    status.textContent = preview.emoji + " " + preview.name + "...";
     ticks++;
 
     if (ticks >= 15) {
@@ -318,15 +313,17 @@ function spin() {
       button.disabled = false;
       spinning = false;
 
-      const finalMemory = memories[Math.floor(Math.random() * memories.length)];
-      openMemory(finalMemory);
+      const selected = memories[
+        Math.floor(Math.random() * memories.length)
+      ];
+
+      openMemory(selected);
     }
   }, 180);
 }
 
 function openMemory(memory) {
   chosenMemory = memory;
-  photoAttempt = 0;
 
   document.getElementById("home").style.display = "none";
   document.getElementById("memoryPage").style.display = "block";
@@ -335,49 +332,38 @@ function openMemory(memory) {
     memory.emoji + " " + memory.title;
 
   document.getElementById("memorySubtitle").textContent =
-    "Your universe has brought you to: " + memory.name;
+    "Your universe has chosen: " + memory.name;
 
-  const photo = document.getElementById("memoryPhoto");
-  photo.classList.add("hidden");
-  photo.removeAttribute("src");
-
-  document.getElementById("photoMessage").textContent =
-    "Searching for your " + memory.name.toLowerCase() + " photo...";
-
-  tryNextImage();
-}
-
-function tryNextImage() {
   const photo = document.getElementById("memoryPhoto");
   const message = document.getElementById("photoMessage");
 
-  if (!chosenMemory || photoAttempt >= chosenMemory.files.length) {
-    photo.classList.add("hidden");
-    message.textContent =
-      "Your memory is ready, but its photo was not found. Add the correct photo file to your GitHub repository. Check the filename instructions below the code.";
-    return;
-  }
-
-  const file = chosenMemory.files[photoAttempt];
-  photoAttempt++;
+  photo.classList.add("hidden");
+  photo.removeAttribute("src");
+  message.textContent = memory.message;
 
   photo.onload = function() {
     photo.classList.remove("hidden");
-    message.textContent = chosenMemory.message;
   };
 
   photo.onerror = function() {
-    tryNextImage();
+    photo.classList.add("hidden");
+    message.textContent =
+      memory.message +
+      " Please check that the photo '" +
+      memory.files[0] +
+      "' exists in your GitHub repository beside index.html.";
   };
 
-  photo.src = file;
+  photo.src = memory.files[0];
 }
 
 function goHome() {
   document.getElementById("memoryPage").style.display = "none";
   document.getElementById("home").style.display = "block";
+
   document.getElementById("status").textContent =
     "Welcome back! Spin again to discover another memory.";
+
   chosenMemory = null;
 }
 </script>
