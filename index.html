@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Love Portal ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink: #ff8ed4;
+  --purple: #a78bfa;
+  --white: #fff7ff;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--white);
+  background: #080719;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 15% 20%, #39205c 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 70%, #32183f 0%, transparent 40%),
+    linear-gradient(145deg, #080719, #15102e, #080719);
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white 70%, transparent),
+    radial-gradient(1px 1px at 70% 20%, white 70%, transparent),
+    radial-gradient(2px 2px at 85% 65%, #ffb9eb 70%, transparent),
+    radial-gradient(1px 1px at 40% 80%, white 70%, transparent),
+    radial-gradient(2px 2px at 60% 50%, #d5c3ff 70%, transparent);
+  background-size: 180px 180px;
+  animation: starsMove 35s linear infinite;
+}
+
+@keyframes starsMove {
+  from { background-position: 0 0; }
+  to { background-position: 180px 180px; }
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 7%;
+  background: #09071cbb;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #ffffff14;
+}
+
+.logo {
+  color: #ffd2f1;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+}
+
+header a {
+  color: #eadfff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+section {
+  min-height: 100vh;
+  padding: 110px 8% 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.eyebrow {
+  color: #e0baff;
+  letter-spacing: 4px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 1.05;
+  max-width: 950px;
+  background: linear-gradient(100deg, #fff, #ffc1e9, #c7b7ff);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  margin-bottom: 18px;
+  color: #ffd8f1;
+}
+
+p {
+  line-height: 1.9;
+  color: #e1d9f3;
+}
+
+.hero-text {
+  max-width: 650px;
+  margin: 25px auto 30px;
+  font-size: 1.08rem;
+}
+
+.portal {
+  width: min(270px, 70vw);
+  height: min(270px, 70vw);
+  border-radius: 50%;
+  margin: 30px 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle, #ffc5ec35 0%, #a78bfa1a 40%, transparent 68%);
+  border: 2px solid #e6c5ff;
+  box-shadow:
+    0 0 20px #c48cff,
+    0 0 55px #9b5dff80,
+    inset 0 0 35px #d7a5ff70;
+  animation: portalGlow 3s ease-in-out infinite alternate;
+}
+
+.portal-inner {
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  border: 2px dashed #ffb7e6;
+  display: grid;
+  place-items: center;
+  font-size: 4rem;
+  animation: spin 24s linear infinite;
+}
+
+@keyframes portalGlow {
+  from { transform: scale(0.97); filter: brightness(0.9); }
+  to { transform: scale(1.03); filter: brightness(1.25); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 27px;
+  margin: 10px 5px;
+  border: 1px solid #f2c5ff;
+  border-radius: 50px;
+  color: white;
+  background: linear-gradient(100deg, #873cc8, #c04eaa);
+  box-shadow: 0 0 25px #bc69ff50;
+  font-family: inherit;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px #e49aff90;
+}
+
+.secondary {
+  background: #ffffff0a;
+  border-color: #bda9ff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.intro {
+  max-width: 720px;
+  margin: 0 auto 35px;
+}
+
+.cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+  margin-top: 25px;
+}
+
+.card {
+  text-align: left;
+  padding: 24px;
+  border-radius: 23px;
+  border: 1px solid #d6b5ff35;
+  background: linear-gradient(145deg, #ffffff10, #ffffff04);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 45px #00000020;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #e7baff;
+}
+
+.card h3 {
+  color: #ffd1f0;
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+
+.photo {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #38254e, #201733);
+  border: 1px solid #ffffff20;
+}
+
+.photo-note {
+  color: #cbb9e8;
+  font-size: 0.83rem;
+  margin-top: 10px;
+}
+
+.memory-card {
+  cursor: pointer;
+}
+
+.memory-message {
+  display: none;
+  margin-top: 14px;
+  color: #ffd6f1;
+  border-top: 1px solid #ffffff25;
+  padding-top: 14px;
+}
+
+.memory-card.open .memory-message {
+  display: block;
+  animation: appear 0.4s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.promise-box {
+  width: 100%;
+  max-width: 650px;
+  padding: 35px 25px;
+  border: 1px solid #f3b7e4;
+  border-radius: 28px;
+  background: #ffffff08;
+  box-shadow: 0 0 45px #d46bff20;
+}
+
+.heart {
+  font-size: 5rem;
+  cursor: pointer;
+  display: inline-block;
+  margin: 15px;
+  filter: drop-shadow(0 0 18px #ff69bd);
+  animation: heartbeat 1.4s infinite;
+  background: transparent;
+  border: 0;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.hidden-promises {
+  display: none;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.hidden-promises.show {
+  display: block;
+  animation: appear 0.7s ease;
+}
+
+.hidden-promises p {
+  margin: 12px 0;
+  padding: 12px;
+  background: #ffffff09;
+  border-radius: 12px;
+}
+
+.final-photo {
+  width: min(450px, 100%);
+  height: 310px;
+  object-fit: cover;
+  border-radius: 25px;
+  margin: 25px 0;
+  border: 2px solid #f0baff;
+  box-shadow: 0 0 35px #bb75ff45;
+}
+
+.final-message {
+  max-width: 700px;
+  margin: 15px auto;
+  font-size: 1.15rem;
+}
+
+footer {
+  padding: 28px 15px;
+  text-align: center;
+  color: #c3b4dd;
+  border-top: 1px solid #ffffff15;
+  font-size: 0.9rem;
+}
+
+.heart-float {
+  position: fixed;
+  bottom: -40px;
+  pointer-events: none;
+  z-index: 20;
+  animation: floatUp 4s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  header { padding: 15px 5%; }
+  .logo { font-size: 1rem; }
+  header a { font-size: 0.8rem; }
+  section { padding: 100px 6% 55px; }
+  .hero-text { font-size: 1rem; }
+  .card { padding: 19px; }
+}
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+
+<header>
+  <div class="logo">✦ THE LOVE PORTAL</div>
+  <a href="#home">Our Universe ❤️</a>
+</header>
+
+<!-- PORTAL 1: THE BEGINNING -->
+<section class="hero" id="home">
+  <p class="eyebrow">A little universe made with love</p>
+
+  <h1>For My Aai &amp; Baba</h1>
+
+  <p class="hero-text">
+    There are billions of stars in the universe,
+    but for me, the brightest ones have always been you.
+    This little world is my way of saying something
+    that words can never fully explain.
+  </p>
+
+  <div class="portal">
+    <div class="portal-inner">❤️</div>
+  </div>
+
+  <button class="button" onclick="beginJourney()">
+    Begin Our Journey ✨
+  </button>
+
+  <p class="photo-note">Two people. One home. Endless love.</p>
+</section>
+
+<!-- PORTAL 2: GRATITUDE -->
+<section id="gratitude">
+  <div class="container">
+    <p class="eyebrow">Portal 01 · My First Home</p>
+    <h2>Thank You, Aai &amp; Baba</h2>
+
+    <p class="intro">
+      Before I knew anything about this world, I knew your love.
+      You have given me more than I can ever count.
+      Some things may go unnoticed, but nothing you do for me
+      is too small to matter.
+    </p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>🌷 For Aai</h3>
+        <p>
+          Aai, thank you for your care, your patience,
+          your warmth, and the little things you do every day.
+          You make ordinary moments feel special.
+          No matter how much I grow, a part of me will
+          always need your love and blessings.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>🌟 For Baba</h3>
+        <p>
+          Baba, thank you for your support, your guidance,
+          and for trying to give me a better future.
+          I may not always say it, but I notice your efforts.
+          You teach me to keep going, even when things are hard.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>🏡 For Both of You</h3>
+        <p>
+          Thank you for being my family, my support,
+          and a place where I can keep learning and growing.
+          I know I still have so much to learn,
+          but I hope I can make you proud one day.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL 3: MEMORY UNIVERSE -->
+<section id="memories">
+  <div class="container">
+    <p class="eyebrow">Portal 02 · Our Little Galaxy</p>
+    <h2>Memories That Feel Like Magic</h2>
+
+    <p class="intro">
+      Every family has a universe of its own.
+      These are a few little windows into ours.
+      Tap a memory card to reveal its message.
+    </p>
+
+    <div class="cards">
+      <article class="card memory-card"
+        onclick="toggleMemory(this)">
+        <img class="photo" src="aai.jpg"
+          alt="Photo with Aai"
+          onerror="this.style.display='none'">
+        <h3>🌷 Aai's Universe</h3>
+        <p>My comfort, my care, my Aai.</p>
+        <div class="memory-message">
+          No matter how big the world becomes,
+          your love will always feel like home.
+          Thank you for being you, Aai. ❤️
+        </div>
+      </article>
+
+      <article class="card memory-card"
+        onclick="toggleMemory(this)">
+        <img class="photo" src="baba.jpg"
+          alt="Photo with Baba"
+          onerror="this.style.display='none'">
+        <h3>🌟 Baba's Universe</h3>
+        <p>My guide, my strength, my Baba.</p>
+        <div class="memory-message">
+          Thank you for standing beside me
+          and helping me learn about life.
+          Your support means more than I say. ❤️
+        </div>
+      </article>
+
+      <article class="card memory-card"
+        onclick="toggleMemory(this)">
+        <img class="photo" src="childhood.jpg"
+          alt="Childhood memory"
+          onerror="this.style.display='none'">
+        <h3>🪄 Little Me</h3>
+        <p>Once little, always your child.</p>
+        <div class="memory-message">
+          I may grow taller, learn new things,
+          and follow my own dreams,
+          but I will always be your child.
+        </div>
+      </article>
+
+      <article class="card memory-card"
+        onclick="toggleMemory(this)">
+        <img class="photo" src="family.jpg"
+          alt="Family photograph"
+          onerror="this.style.display='none'">
+        <h3>🏡 Our Little World</h3>
+        <p>My favourite people, my favourite place.</p>
+        <div class="memory-message">
+          The best part of a memory is not
+          how perfect it looks. It is the people
+          who made it worth remembering. ❤️
+        </div>
+      </article>
+    </div>
+
+    <p class="photo-note">
+      Add your own pictures by using the filenames shown in the code.
+    </p>
+  </div>
+</section>
+
+<!-- PORTAL 4: PROMISES -->
+<section id="promises">
+  <div class="container">
+    <p class="eyebrow">Portal 03 · A Promise From My Heart</p>
+    <h2>Open My Heart 💜</h2>
+
+    <div class="promise-box">
+      <p>
+        There are some things I want you to know,
+        even if I don't say them every day.
+      </p>
+
+      <button class="heart" onclick="revealPromises()"
+        aria-label="Reveal my promises">💖</button>
+
+      <p>Tap the heart to discover my promises.</p>
+
+      <div class="hidden-promises" id="promiseList">
+        <p>✨ I will keep learning from my mistakes.</p>
+        <p>✨ I will try my best to work towards my dreams.</p>
+        <p>✨ I will respect you and appreciate your efforts.</p>
+        <p>✨ I will remember the values you teach me.</p>
+        <p>✨ I will try to make you proud through my actions.</p>
+        <p>❤️ And I will never forget how much you mean to me.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL 5: THE FINAL REVEAL -->
+<section id="final">
+  <div class="container">
+    <p class="eyebrow">The Last Portal · But Never the End</p>
+    <h2>My Favourite Universe Is You</h2>
+
+    <p class="intro">
+      I made this little world because a normal
+      "thank you" did not feel big enough.
+      So I made a whole universe for the two people
+      who mean so much to me.
+    </p>
+
+    <button class="button" onclick="revealFinal()">
+      Open My Final Surprise 🎁
+    </button>
+
+    <div id="finalSurprise" hidden>
+      <img class="final-photo" src="family.jpg"
+        alt="Our family together"
+        onerror="this.style.display='none'">
+
+      <p class="final-message">
+        Dear Aai and Baba,
+        <br><br>
+        I don't know what the future will bring,
+        or where life will take me.
+        But wherever I go, I will carry your love,
+        your lessons, and the memories we have made.
+        <br><br>
+        I might not always express my feelings perfectly.
+        I might make mistakes, and I still have a lot to learn.
+        But please know that I am grateful for you.
+        <br><br>
+        If I could choose my family in a thousand different
+        universes, I would still wish for you both.
+        <br><br>
+        <strong>Thank you for being my Aai and Baba.
+        I love you more than this little universe can show. ❤️</strong>
+      </p>
+
+      <p style="margin-top:25px;color:#ffd2f1">
+        Made with all my love, just for you. ✨
+      </p>
+
+      <button class="button" onclick="celebrate()">
+        Fill Our Universe With Love 💕
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Made with ❤️ by your child · Our love has no end</p>
+</footer>
+
+<script>
+function beginJourney() {
+  document.getElementById("gratitude").scrollIntoView({
+    behavior: "smooth"
+  });
+  createHearts(8);
+}
+
+function toggleMemory(card) {
+  card.classList.toggle("open");
+}
+
+function revealPromises() {
+  const list = document.getElementById("promiseList");
+  list.classList.toggle("show");
+
+  if (list.classList.contains("show")) {
+    createHearts(12);
+  }
+}
+
+function revealFinal() {
+  document.getElementById("finalSurprise").hidden = false;
+  document.getElementById("finalSurprise").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+  createHearts(18);
+}
+
+function createHearts(amount) {
+  const symbols = ["💖", "✨", "💕", "💜", "❤️"];
+
+  for (let i = 0; i < amount; i++) {
+    const heart = document.createElement("span");
+    heart.className = "heart-float";
+    heart.textContent = symbols[
+      Math.floor(Math.random() * symbols.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (16 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    heart.addEventListener("animationend", () => heart.remove());
+  }
+}
+
+function celebrate() {
+  createHearts(45);
+}
+</script>
+
+</body>
+</html>
