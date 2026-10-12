@@ -1,85 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Universe of Memories</title>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: radial-gradient(circle, #211044, #080817, #000);
-  overflow-x: hidden;
-}
-
-main {
-  padding: 25px 15px;
-  max-width: 900px;
-  margin: auto;
-}
-
-h1 {
-  font-size: clamp(30px, 6vw, 48px);
-  letter-spacing: 3px;
-  text-shadow: 0 0 20px #a65cff;
-}
-
-.subtitle {
-  color: #d8ceff;
-  line-height: 1.6;
-}
-
-.stage {
-  width: min(78vw, 350px);
-  aspect-ratio: 1;
-  margin: 25px auto;
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-
-.orbit {
-  position: absolute;
-  width: 100%;
-  height: 38%;
-  border: 5px solid #ff9e4a;
-  border-left-color: #bd69ff;
-  border-right-color: #6ceaff;
-  border-radius: 50%;
-  transform: rotate(-25deg);
-  box-shadow: 0 0 20px #a34fff;
-}
-
-.orbit.two {
-  width: 85%;
-  height: 48%;
-  border: 3px solid #8e70ff;
-  transform: rotate(55deg);
-}
-
-.black-hole {
-  width: 43%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    #000 0 43%,
-    #150a29 55%,
-    #ff8b3d 66%,
-    #bd55ff 74%,
-    transparent 78%
-  );
-  box-shadow: 0 0 35px #963cff, 0 0 70px #642cff;
-}
-
 .spinning .orbit {
   animation: spin 0.4s linear infinite;
 }
@@ -88,22 +6,14 @@ h1 {
   animation: spinBack 0.35s linear infinite;
 }
 
-.spinning .black-hole {
-  animation: pulse 0.3s ease-in-out infinite alternate;
-}
-
 @keyframes spin {
-  to { transform: rotate(335deg); }
+  to {
+    transform: rotate(335deg);
+  }
 }
 
 @keyframes spinBack {
-  to { transform: rotate(-305deg); }
+  to {
+    transform: rotate(-305deg);
+  }
 }
-
-@keyframes pulse {
-  to { transform: scale(1.12); }
-}
-
-button {
-  padding: 14px 27px;
-  border: 1px
