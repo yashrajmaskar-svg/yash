@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Love Portal | Universe of Memories</title>
+<title>The Love Portal 🌌</title>
 
 <style>
 * {
@@ -13,67 +13,72 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
   color: white;
   background: #02010a;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 button {
-  cursor: pointer;
-  border: 0;
+  border: 1px solid #bba0ff;
   border-radius: 30px;
-  padding: 14px 25px;
+  padding: 15px 24px;
+  margin: 8px;
   color: white;
-  background: linear-gradient(100deg, #713cff, #e53cc8);
-  font-size: 16px;
+  background: linear-gradient(110deg, #6934dd, #d23cae);
+  font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 0 22px #a04dff66;
+  letter-spacing: .5px;
+  cursor: pointer;
+  box-shadow: 0 0 25px #914cff55;
 }
 
 button:hover {
   filter: brightness(1.2);
+  transform: scale(1.03);
 }
 
 button:disabled {
-  opacity: .5;
+  opacity: .6;
   cursor: wait;
 }
 
 #stars {
   position: fixed;
-  inset: -100%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(2px 2px at 40px 60px, white, transparent),
-    radial-gradient(1px 1px at 120px 180px, #a8cfff, transparent),
-    radial-gradient(2px 2px at 200px 100px, #d5a6ff, transparent),
-    radial-gradient(1px 1px at 280px 240px, white, transparent);
-  background-size: 320px 280px;
+    radial-gradient(2px 2px at 30px 40px, white, transparent),
+    radial-gradient(1px 1px at 120px 130px, #a8d8ff, transparent),
+    radial-gradient(2px 2px at 230px 70px, #e4c3ff, transparent),
+    radial-gradient(1px 1px at 300px 210px, white, transparent),
+    radial-gradient(2px 2px at 70px 260px, #ffb8ec, transparent);
+  background-size: 330px 300px;
+  animation: starsDrift 45s linear infinite;
 }
 
-main {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
+@keyframes starsDrift {
+  from { background-position: 0 0; }
+  to { background-position: 330px 600px; }
 }
 
 .page {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
-  padding: 30px 16px;
+  padding: 28px 16px 45px;
   text-align: center;
 }
 
 h1 {
-  font-size: clamp(32px, 6vw, 54px);
-  text-shadow: 0 0 25px #a56aff;
+  font-size: clamp(32px, 6vw, 53px);
+  text-shadow: 0 0 25px #a65cff;
 }
 
 .subtitle {
-  color: #c9c3ed;
-  line-height: 1.7;
+  color: #cfc6f5;
+  line-height: 1.8;
 }
 
 #home {
@@ -81,51 +86,51 @@ h1 {
 }
 
 .portal {
-  height: 350px;
-  position: relative;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hole {
   position: relative;
-  width: 145px;
-  height: 145px;
-  z-index: 3;
-  border-radius: 50%;
-  background: #000;
-  box-shadow:
-    0 0 18px 7px #ff79e5,
-    0 0 42px 20px #9d42ff,
-    0 0 100px 40px #4020bc;
 }
 
-.hole::before {
+.blackhole {
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  background: black;
+  box-shadow:
+    0 0 22px 8px #ff7be3,
+    0 0 48px 22px #8c43ff,
+    0 0 95px 38px #3720bb;
+}
+
+.blackhole::before {
   content: "";
   position: absolute;
   inset: -22px;
-  border: 7px solid transparent;
-  border-top-color: #ffb7f4;
-  border-bottom-color: #62e5ff;
   border-radius: 50%;
+  border: 7px solid transparent;
+  border-top-color: #ffb6f1;
+  border-bottom-color: #6be6ff;
   transform: rotate(-25deg);
 }
 
-.hole::after {
+.blackhole::after {
   content: "";
   position: absolute;
   inset: -38px;
-  border: 2px solid #a982ff;
   border-radius: 50%;
+  border: 2px solid #9974ff;
   transform: scaleY(.42) rotate(25deg);
 }
 
 .orbit {
   position: absolute;
-  width: 270px;
+  width: 260px;
   height: 100px;
-  border: 1px solid #a88bff99;
+  border: 1px solid #b18bff88;
   border-radius: 50%;
   transform: rotate(-30deg);
 }
@@ -133,7 +138,7 @@ h1 {
 .orbit.two {
   width: 310px;
   height: 130px;
-  border-color: #ff85dc88;
+  border-color: #ff7de077;
   transform: rotate(30deg);
 }
 
@@ -147,10 +152,10 @@ h1 {
 
 .memory-labels span {
   padding: 10px 14px;
-  border: 1px solid #7863c9;
-  border-radius: 25px;
-  background: #17102f;
-  color: #e2d8ff;
+  border: 1px solid #66539c;
+  border-radius: 24px;
+  background: #17102e;
+  color: #e4dcff;
 }
 
 #travel {
@@ -159,67 +164,177 @@ h1 {
   z-index: 10;
   inset: 0;
   overflow: hidden;
-  background: #000;
-  perspective: 500px;
+  background: #010008;
+  perspective: 650px;
+}
+
+#travelWorld {
+  position: absolute;
+  inset: -35%;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .tunnel {
   position: absolute;
-  inset: -50%;
-  background:
-    repeating-radial-gradient(
-      circle at center,
-      transparent 0 35px,
-      #8c4aff55 37px,
-      transparent 41px 70px
-    );
-  animation: tunnelMove 1.2s linear infinite;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    ellipse at center,
+    transparent 0 24px,
+    #8645ff55 26px,
+    #ff8de944 29px,
+    transparent 32px 52px
+  );
+  animation: tunnelForward 4s linear infinite;
 }
 
-.tunnel::before {
-  content: "";
+.tunnel.second {
+  inset: 8%;
+  opacity: .7;
+  border: 2px solid #c17bff33;
+  animation: tunnelForward 6s linear infinite reverse;
+}
+
+.tunnel.third {
+  inset: 15%;
+  opacity: .5;
+  animation: tunnelForward 8s linear infinite;
+}
+
+@keyframes tunnelForward {
+  0% {
+    transform: scale(.55) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: scale(1.65) rotate(100deg);
+    filter: hue-rotate(65deg);
+  }
+}
+
+#travelWorld.turn-left {
+  animation: turnLeft 3.2s ease-in-out forwards;
+}
+
+#travelWorld.turn-right {
+  animation: turnRight 3.2s ease-in-out forwards;
+}
+
+@keyframes turnLeft {
+  0% { transform: rotate(0deg) scale(1); }
+  40% { transform: rotate(-17deg) scale(1.1); }
+  100% { transform: rotate(-360deg) scale(1.18); }
+}
+
+@keyframes turnRight {
+  0% { transform: rotate(0deg) scale(1); }
+  40% { transform: rotate(19deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1.18); }
+}
+
+#travelShade {
   position: absolute;
   inset: 0;
-  background:
-    repeating-conic-gradient(
-      from 0deg,
-      #9c55ff00 0deg 7deg,
-      #b18cff55 8deg 8.5deg,
-      #9c55ff00 9deg 18deg
-    );
-  animation: tunnelSpin .8s linear infinite;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    #03000b55 45%,
+    #000 100%
+  );
 }
 
-.tunnel::after {
-  content: "";
+#travelMessage {
   position: absolute;
-  inset: 35%;
-  background: black;
-  border-radius: 50%;
-  box-shadow: 0 0 80px 40px #872eff;
-}
-
-@keyframes tunnelMove {
-  from { transform: scale(.5) rotate(0deg); }
-  to { transform: scale(2.4) rotate(12deg); }
-}
-
-@keyframes tunnelSpin {
-  from { transform: rotate(0deg) scale(.7); }
-  to { transform: rotate(360deg) scale(1.3); }
-}
-
-#travelText {
-  position: absolute;
-  z-index: 2;
+  z-index: 3;
   top: 50%;
-  left: 0;
-  width: 100%;
-  padding: 15px;
-  transform: translateY(-50%);
+  left: 50%;
+  width: min(90%, 650px);
+  transform: translate(-50%, -50%);
+  padding: 20px;
   text-align: center;
-  font-size: clamp(24px, 5vw, 42px);
-  text-shadow: 0 0 25px #d58aff;
+}
+
+#chapter {
+  margin-bottom: 25px;
+  color: #bca4ff;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+#messageTitle {
+  min-height: 1.5em;
+  font-size: clamp(25px, 5vw, 42px);
+  line-height: 1.35;
+  text-shadow: 0 0 28px #9c4cff;
+}
+
+#messageText {
+  max-width: 530px;
+  margin: 20px auto;
+  color: #e1daf7;
+  font-size: clamp(16px, 2.7vw, 20px);
+  line-height: 1.9;
+}
+
+#messageCounter {
+  margin-top: 25px;
+  color: #9d8acb;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+#continueButton {
+  margin-top: 15px;
+  background: #17102d;
+  border-color: #9270d9;
+}
+
+#skipButton {
+  display: block;
+  margin: 20px auto 0;
+  padding: 9px 16px;
+  font-size: 12px;
+  background: transparent;
+  box-shadow: none;
+  border-color: #ffffff44;
+}
+
+.message-in {
+  animation: messageIn 1.1s ease both;
+}
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+#arrivalFlash {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#arrivalFlash.flash {
+  animation: flashArrival 1.5s ease forwards;
+}
+
+@keyframes flashArrival {
+  0% { opacity: 0; }
+  30% { opacity: .85; }
+  100% { opacity: 0; }
 }
 
 #memoryPage {
@@ -228,16 +343,19 @@ h1 {
   min-height: 100vh;
   padding: 35px 16px;
   text-align: center;
-  animation: memoryAppear 1.2s ease forwards;
 }
 
-@keyframes memoryAppear {
-  from {
+#memoryPage.arrive {
+  animation: arriveMemory 2s ease forwards;
+}
+
+@keyframes arriveMemory {
+  0% {
     opacity: 0;
     transform: scale(.82);
-    filter: blur(12px);
+    filter: blur(15px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: scale(1);
     filter: blur(0);
@@ -245,13 +363,13 @@ h1 {
 }
 
 .memory-card {
-  width: min(100%, 700px);
+  width: min(100%, 720px);
   margin: 25px auto;
   padding: 22px;
-  border: 1px solid #8d6ce7;
+  border: 1px solid #8064cb;
   border-radius: 25px;
-  background: #100d25eF;
-  box-shadow: 0 0 45px #7a36ff33;
+  background: #100c25ed;
+  box-shadow: 0 0 45px #753cff33;
 }
 
 #memoryPhoto {
@@ -259,42 +377,39 @@ h1 {
   width: 100%;
   max-height: 65vh;
   object-fit: contain;
-  border-radius: 16px;
   margin: 20px auto;
+  border-radius: 15px;
   background: #05040a;
 }
 
-#memoryMessage {
-  line-height: 1.8;
-  color: #ded6ff;
-  font-size: 17px;
+#photoStatus {
+  color: #ffc4f1;
+  line-height: 1.7;
 }
 
-#photoStatus {
-  color: #ffc5f3;
-  line-height: 1.6;
+#memoryMessage {
+  color: #e1d9ff;
+  font-size: 17px;
+  line-height: 1.9;
 }
 
 .hidden {
   display: none !important;
 }
 
-#backButton {
-  margin-top: 15px;
-}
-
 footer {
   margin-top: 30px;
-  color: #aaa0d4;
+  color: #a99bcf;
   font-size: 13px;
 }
 
 @media (max-width: 480px) {
-  .portal { height: 290px; }
-  .hole { width: 110px; height: 110px; }
+  .portal { height: 285px; }
+  .blackhole { width: 110px; height: 110px; }
   .orbit { width: 220px; }
   .orbit.two { width: 260px; }
   .memory-card { padding: 13px; }
+  #travelMessage { padding: 12px; }
 }
 </style>
 </head>
@@ -302,19 +417,21 @@ footer {
 <body>
 
 <div id="stars"></div>
+<div id="arrivalFlash"></div>
 
 <main>
   <section id="home" class="page">
     <h1>🌌 The Love Portal</h1>
+
     <p class="subtitle">
-      Four memories. One universe.<br>
-      Enter the black hole and travel through time.
+      Somewhere beyond the stars, your memories are waiting.<br>
+      Dare to discover where the universe will take you?
     </p>
 
     <div class="portal">
       <div class="orbit"></div>
       <div class="orbit two"></div>
-      <div class="hole" id="mainHole"></div>
+      <div class="blackhole" id="mainHole"></div>
     </div>
 
     <button id="enterButton" onclick="startJourney()">
@@ -323,21 +440,41 @@ footer {
 
     <div class="memory-labels">
       <span>🌈 Childhood</span>
-      <span>👨 Father</span>
-      <span>👩 Mother</span>
+      <span>👨 Baba</span>
+      <span>👩 Aai</span>
       <span>❤️ Family</span>
     </div>
 
     <p class="subtitle" id="homeMessage">
-      Ready for a journey through your memories?
+      Every journey reveals a different piece of your universe.
     </p>
 
-    <footer>✨ Some memories live forever ✨</footer>
+    <footer>✨ Some memories are worth travelling galaxies for ✨</footer>
   </section>
 
   <section id="travel">
-    <div class="tunnel"></div>
-    <div id="travelText">🌌 Entering the unknown...</div>
+    <div id="travelWorld">
+      <div class="tunnel"></div>
+      <div class="tunnel second"></div>
+      <div class="tunnel third"></div>
+    </div>
+
+    <div id="travelShade"></div>
+
+    <div id="travelMessage">
+      <div id="chapter">THE UNKNOWN · 01</div>
+      <h2 id="messageTitle"></h2>
+      <p id="messageText"></p>
+      <div id="messageCounter"></div>
+
+      <button id="continueButton" onclick="nextMessage()">
+        Continue into the unknown →
+      </button>
+
+      <button id="skipButton" onclick="skipJourney()">
+        Skip journey
+      </button>
+    </div>
   </section>
 
   <section id="memoryPage">
@@ -345,21 +482,21 @@ footer {
     <p class="subtitle" id="memorySubtitle"></p>
 
     <div class="memory-card">
-      <img id="memoryPhoto" class="hidden" alt="Your family memory">
+      <img id="memoryPhoto" class="hidden" alt="Your memory photo">
 
       <p id="photoStatus"></p>
       <p id="memoryMessage"></p>
 
-      <button id="backButton" onclick="returnToUniverse()">
+      <button onclick="returnToUniverse()">
         🌌 RETURN TO THE UNIVERSE
       </button>
 
       <button onclick="startJourney()">
-        🌀 TRAVEL AGAIN
+        🌀 BEGIN ANOTHER JOURNEY
       </button>
     </div>
 
-    <footer>❤️ Your favourite people are your greatest universe ❤️</footer>
+    <footer>❤️ The people we love are our favourite universe ❤️</footer>
   </section>
 </main>
 
@@ -369,97 +506,212 @@ const memories = [
     name: "Childhood",
     emoji: "🌈",
     title: "The Magic of Childhood",
-    subtitle: "A journey back to the beautiful beginning",
+    subtitle: "A journey to where your story began",
     message:
-      "Little moments, innocent smiles, and unforgettable days. No matter how much time passes, these memories will always be a part of you.",
+      "Little moments, innocent smiles, and days that seemed endless. Childhood may pass, but the happiness it gave us can stay forever.",
     file: "childhood.jpg"
   },
   {
     name: "Father",
     emoji: "👨",
-    title: "My First Hero — Father",
+    title: "My First Hero — Baba",
     subtitle: "A universe of strength and support",
     message:
-      "Behind so many of life's lessons is a father's care, guidance, and quiet support. Some heroes don't need a cape.",
-    file: "father.jpg"
+      "Some heroes never ask for recognition. They guide us, stand beside us, and help us find our way, even when we don't notice it.",
+    file: "baba.jpg"
   },
   {
     name: "Mother",
     emoji: "👩",
-    title: "A Mother's Endless Love",
-    subtitle: "The warmest place in the universe",
+    title: "Aai — My Endless Love",
+    subtitle: "The warmth that follows us everywhere",
     message:
-      "A mother's love brings comfort, courage, and warmth. Wherever life's journey takes you, that love remains a precious memory.",
-    file: "mother.jpg"
+      "There is a special kind of comfort in a mother's love. No matter how far the journey takes us, its warmth can always feel close.",
+    file: "aai.jpg"
   },
   {
     name: "Family",
     emoji: "❤️",
     title: "My Beautiful Family",
-    subtitle: "Where every journey finds its home",
+    subtitle: "The place where every journey comes home",
     message:
-      "Family is made of shared laughter, little moments, and people who make life meaningful. These are the memories worth keeping forever.",
+      "Life gives us many destinations, but the moments we share with family become the memories we carry along the way.",
     file: "family.jpg"
   }
 ];
 
+const journeyMessages = [
+  {
+    chapter: "THE BEGINNING · 01",
+    title: "Something is calling you...",
+    text: "Look closely at the black hole. Somewhere beyond its darkness, a memory is waiting. You cannot see it yet. You can only take the first step."
+  },
+  {
+    chapter: "CROSSING THE EVENT HORIZON · 02",
+    title: "You are leaving your world behind.",
+    text: "The stars are getting farther away. Everything familiar is slowly disappearing. From this moment, the universe may take you somewhere unexpected."
+  },
+  {
+    chapter: "THE FIRST TURN · 03",
+    title: "Wait... the tunnel is bending!",
+    text: "The path ahead is changing direction. Hold on to the journey. Every turn takes you closer to something important, but the destination is still a secret."
+  },
+  {
+    chapter: "LOST AMONG THE STARS · 04",
+    title: "Can you feel the past?",
+    text: "A distant light is flickering in the darkness. It could be a forgotten laugh, a familiar face, or a moment you wish you could visit again."
+  },
+  {
+    chapter: "THE SECOND TURN · 05",
+    title: "The universe is turning again.",
+    text: "Left, right, deeper into the unknown. The stars are swirling around you. One of your most precious memories is getting closer, but which one?"
+  },
+  {
+    chapter: "A DISTANT LIGHT · 06",
+    title: "You have been here before...",
+    text: "Not in this place, perhaps. But in a moment like this. Somewhere in your life, someone made you smile, feel safe, or feel that you belonged."
+  },
+  {
+    chapter: "APPROACHING THE DESTINATION · 07",
+    title: "Something feels familiar.",
+    text: "The darkness is beginning to glow. The journey is slowing down. Take a breath. In a moment, the universe will open a door to one of your memories."
+  },
+  {
+    chapter: "THE FINAL GATE · 08",
+    title: "Are you ready to remember?",
+    text: "One last turn. One last passage through the stars. Behind this light is a little piece of your life, waiting for you to find it again."
+  }
+];
+
+let currentMessage = 0;
 let journeyRunning = false;
-let timers = [];
+let destination = null;
+let messageTimer = null;
+let autoAdvance = null;
+let turnTimer = null;
 
-function clearJourneyTimers() {
-  timers.forEach(timer => clearTimeout(timer));
-  timers = [];
-}
-
-function later(callback, delay) {
-  const timer = setTimeout(callback, delay);
-  timers.push(timer);
+function clearTimers() {
+  clearTimeout(messageTimer);
+  clearTimeout(autoAdvance);
+  clearTimeout(turnTimer);
 }
 
 function startJourney() {
   if (journeyRunning) return;
 
+  clearTimers();
   journeyRunning = true;
-  clearJourneyTimers();
+  currentMessage = 0;
 
-  document.getElementById("home").style.display = "none";
-  document.getElementById("memoryPage").style.display = "none";
-
-  const travel = document.getElementById("travel");
-  const travelText = document.getElementById("travelText");
-  const stars = document.getElementById("stars");
-
-  travel.style.display = "block";
-  travelText.textContent = "🌀 The black hole is pulling you in...";
-  stars.style.animation = "tunnelMove .8s linear infinite";
-
-  const sequence = [
-    "🌀 Falling into the black hole...",
-    "✨ Crossing the stars...",
-    "🌈 Passing through childhood memories...",
-    "👨 Travelling through moments with Father...",
-    "👩 Searching the universe for Mother...",
-    "❤️ Approaching the family galaxy...",
-    "🌌 Your memory is waiting..."
-  ];
-
-  sequence.forEach((text, index) => {
-    later(() => {
-      travelText.textContent = text;
-    }, 650 + index * 550);
-  });
-
-  // Choose the destination after the journey begins.
-  const destination = memories[
+  destination = memories[
     Math.floor(Math.random() * memories.length)
   ];
 
-  later(() => {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("memoryPage").style.display = "none";
+  document.getElementById("travel").style.display = "block";
+
+  document.getElementById("enterButton").disabled = true;
+
+  const world = document.getElementById("travelWorld");
+  world.className = "";
+
+  document.getElementById("stars").style.animationDuration = "8s";
+
+  showJourneyMessage();
+}
+
+function showJourneyMessage() {
+  clearTimers();
+
+  const item = journeyMessages[currentMessage];
+
+  document.getElementById("chapter").textContent = item.chapter;
+  document.getElementById("messageTitle").textContent = item.title;
+  document.getElementById("messageText").textContent = item.text;
+
+  document.getElementById("messageCounter").textContent =
+    "PASSAGE " + (currentMessage + 1) + " OF " +
+    journeyMessages.length;
+
+  const content = document.getElementById("travelMessage");
+  content.classList.remove("message-in");
+  void content.offsetWidth;
+  content.classList.add("message-in");
+
+  const button = document.getElementById("continueButton");
+
+  if (currentMessage === journeyMessages.length - 1) {
+    button.textContent = "Reveal my memory ✨";
+  } else {
+    button.textContent = "Continue into the unknown →";
+  }
+
+  const world = document.getElementById("travelWorld");
+  world.classList.remove("turn-left", "turn-right");
+
+  // Make a slow turn during selected passages.
+  if (currentMessage === 2 || currentMessage === 4) {
+    void world.offsetWidth;
+    world.classList.add(
+      currentMessage === 2 ? "turn-left" : "turn-right"
+    );
+  }
+
+  // Give each message time to be read before continuing automatically.
+  // The Continue button can also be used to move forward sooner.
+  autoAdvance = setTimeout(() => {
+    nextMessage();
+  }, 7500);
+}
+
+function nextMessage() {
+  if (!journeyRunning) return;
+
+  clearTimers();
+
+  if (currentMessage < journeyMessages.length - 1) {
+    currentMessage++;
+    showJourneyMessage();
+  } else {
+    arriveAtMemory();
+  }
+}
+
+function skipJourney() {
+  if (!journeyRunning) return;
+  clearTimers();
+  arriveAtMemory();
+}
+
+function arriveAtMemory() {
+  clearTimers();
+
+  const travel = document.getElementById("travel");
+  const flash = document.getElementById("arrivalFlash");
+
+  document.getElementById("chapter").textContent = "DESTINATION REACHED";
+  document.getElementById("messageTitle").textContent = "The light is opening...";
+  document.getElementById("messageText").textContent =
+    "Your journey ends here. A memory is waiting on the other side.";
+
+  document.getElementById("messageCounter").textContent = "WELCOME HOME";
+  document.getElementById("continueButton").style.display = "none";
+  document.getElementById("skipButton").style.display = "none";
+
+  flash.classList.remove("flash");
+  void flash.offsetWidth;
+  flash.classList.add("flash");
+
+  setTimeout(() => {
     travel.style.display = "none";
-    stars.style.animation = "starsMove 35s linear infinite";
     showMemory(destination);
     journeyRunning = false;
-  }, 5200);
+
+    document.getElementById("enterButton").disabled = false;
+    document.getElementById("continueButton").style.display = "";
+    document.getElementById("skipButton").style.display = "";
+  }, 1500);
 }
 
 function showMemory(memory) {
@@ -467,11 +719,10 @@ function showMemory(memory) {
   const photo = document.getElementById("memoryPhoto");
   const status = document.getElementById("photoStatus");
 
-  // Restart the appearance animation.
   page.style.display = "block";
-  page.style.animation = "none";
+  page.classList.remove("arrive");
   void page.offsetWidth;
-  page.style.animation = "memoryAppear 1.2s ease forwards";
+  page.classList.add("arrive");
 
   document.getElementById("memoryTitle").textContent =
     memory.emoji + " " + memory.title;
@@ -484,27 +735,27 @@ function showMemory(memory) {
 
   photo.classList.add("hidden");
   photo.removeAttribute("src");
-  photo.alt = memory.name + " memory";
+  photo.alt = memory.name + " photo";
 
   status.textContent = "Opening your memory...";
 
-  photo.onload = () => {
+  photo.onload = function() {
     photo.classList.remove("hidden");
     status.textContent = "";
   };
 
-  photo.onerror = () => {
+  photo.onerror = function() {
     photo.classList.add("hidden");
     status.textContent =
-      "Photo not found: " + memory.file +
-      ". Please check its name and make sure it is uploaded beside index.html.";
+      "We reached your memory, but couldn't find " + memory.file +
+      ". Please check that this exact filename exists in the repository beside index.html.";
   };
 
   photo.src = memory.file;
 }
 
 function returnToUniverse() {
-  clearJourneyTimers();
+  clearTimers();
   journeyRunning = false;
 
   document.getElementById("memoryPage").style.display = "none";
@@ -512,10 +763,11 @@ function returnToUniverse() {
   document.getElementById("home").style.display = "block";
 
   document.getElementById("homeMessage").textContent =
-    "Welcome back. Another memory is waiting in the universe.";
+    "You're back among the stars. Where will your next journey take you?";
 
-  document.getElementById("stars").style.animation =
-    "starsMove 35s linear infinite";
+  document.getElementById("stars").style.animationDuration = "45s";
+
+  destination = null;
 }
 </script>
 
