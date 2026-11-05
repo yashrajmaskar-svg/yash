@@ -4,333 +4,935 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Galaxy | A Universe of Love</title>
+<title>Our Family Galaxy – A Universe of Love</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#02030d;color:white;font-family:Arial,sans-serif;overflow:hidden}
-#universe{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at center,#171d50,#080b22 55%,#01020a)}
-#stars,#meteor-layer{position:absolute;inset:0;pointer-events:none}
-.star{position:absolute;background:white;border-radius:50%;animation:twinkle 2s infinite alternate}
-@keyframes twinkle{to{opacity:.15;transform:scale(.5)}}
-
-.meteor{position:absolute;width:180px;height:3px;background:linear-gradient(90deg,transparent,#65eaff,white);box-shadow:0 0 15px #49cfff;transform:rotate(-35deg);animation:meteor 1.2s linear forwards}
-@keyframes meteor{0%{opacity:0;transform:translate(0,0) rotate(-35deg)}15%{opacity:1}100%{opacity:0;transform:translate(-700px,700px) rotate(-35deg)}}
-
-#intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;z-index:5;transition:opacity 1.5s;pointer-events:none}
-#intro h1{font-size:clamp(32px,7vw,75px);letter-spacing:5px;text-shadow:0 0 25px #56dfff,0 0 60px #345cff}
-#intro p{margin-top:20px;color:#b8eaff;letter-spacing:5px}
-
-#explosion{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:white;transform:translate(-50%,-50%);opacity:0;z-index:4;pointer-events:none}
-#explosion.go{animation:explode 1.5s ease-out}
-@keyframes explode{0%{opacity:1;box-shadow:0 0 50px 30px white}100%{opacity:0;transform:translate(-50%,-50%) scale(100);box-shadow:0 0 100px 100px #426dff}}
-
-#galaxy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;opacity:0;visibility:hidden;transition:opacity 1.5s;z-index:2}
-#galaxy.show{opacity:1;visibility:visible}
-#galaxy h2{font-size:clamp(28px,5vw,52px);color:#c4eaff;text-shadow:0 0 20px #429bff}
-.subtitle{color:#a9c9ed;margin-top:12px;line-height:1.6}
-
-#ship{position:absolute;left:50%;bottom:12%;font-size:35px;z-index:8;opacity:0;pointer-events:none;transform:translateX(-50%)}
-#ship.fly{opacity:1;animation:shipFly 2.1s ease-in forwards}
-@keyframes shipFly{
-0%{transform:translate(-50%,0) scale(1);opacity:1}
-50%{transform:translate(-50%,-45vh) scale(1.5)}
-100%{transform:translate(-50%,-120vh) scale(.1);opacity:0}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#planet-area{display:flex;justify-content:center;align-items:center;gap:clamp(25px,7vw,90px);flex-wrap:wrap;margin-top:55px;transition:transform 1s}
-.planet-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;cursor:pointer;transition:.4s}
-.planet-wrap:hover{transform:translateY(-14px) scale(1.08)}
-.planet{
-width:clamp(105px,17vw,165px);
-height:clamp(105px,17vw,165px);
-border-radius:50%;
-position:relative;
-box-shadow:inset -20px -15px 35px #0009,0 0 30px #4e91ff;
-animation:float 5s ease-in-out infinite;
+body {
+    background: #01020b;
+    color: white;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    overflow: hidden;
 }
-.planet:after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(120deg,#ffffff55,transparent 45%,#0008)}
-.aai{background:radial-gradient(circle at 30% 25%,#ffe7fa,#d15aaf 35%,#4c247c 75%,#120d37)}
-.baba{background:radial-gradient(circle at 30% 25%,#c8f5ff,#428edb 40%,#18316c 75%,#080e2d)}
-.childhood{background:radial-gradient(circle at 30% 25%,#fff4b2,#e6a74d 38%,#a3434d 75%,#32143d)}
-.ring-planet{position:absolute;width:140%;height:35%;border:3px solid #d6d7ff99;border-radius:50%;left:-20%;top:35%;transform:rotate(-20deg);box-shadow:0 0 12px #9ddcff}
-@keyframes float{50%{transform:translateY(-16px)}}
-.planet-name{font-size:18px;font-weight:bold;letter-spacing:3px;text-shadow:0 0 12px #8fdfff}
-.planet-hint{font-size:12px;color:#a7c5ec;letter-spacing:1px}
 
-#travel-message{position:absolute;top:12%;left:0;right:0;text-align:center;color:#c7edff;font-size:clamp(17px,3vw,26px);opacity:0;z-index:10}
-#travel-message.show{opacity:1}
+#universe {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 50%, #17113e 0%, #08091e 45%, #01020a 100%);
+    perspective: 1000px;
+}
 
-#gallery{position:absolute;inset:0;z-index:20;background:radial-gradient(ellipse at center,#1b2459,#070b20 70%,#01020a);display:flex;flex-direction:column;align-items:center;padding:35px 20px;overflow-y:auto;opacity:0;visibility:hidden;transform:scale(.1);transition:opacity 1s,transform 1s,visibility 1s}
-#gallery.open{opacity:1;visibility:visible;transform:scale(1)}
-#gallery h2{font-size:clamp(30px,6vw,55px);color:#c6ecff;text-shadow:0 0 20px #399cff;margin:25px 0 12px}
-#gallery p{color:#d2e3ff;text-align:center;line-height:1.7;margin-bottom:25px}
-#photo-grid{width:min(100%,1000px);display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;padding:10px}
-.photo-card{background:#ffffff10;border:1px solid #9ddcff55;border-radius:18px;padding:10px;box-shadow:0 0 25px #244c9b55;animation:photoAppear .8s both}
-@keyframes photoAppear{from{opacity:0;transform:translateY(35px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
-.photo-card img{width:100%;height:220px;object-fit:cover;border-radius:12px;background:#101b3d}
-.photo-card p{margin:12px 5px 5px;color:#e6f4ff;font-size:14px}
-.back-btn{margin:25px auto 40px;border:1px solid #9beaff;background:#122b58;color:white;padding:13px 25px;border-radius:30px;cursor:pointer;letter-spacing:2px}
-.back-btn:hover{background:#2456a5}
-#lightbox{position:fixed;inset:0;z-index:30;background:#000e;display:none;align-items:center;justify-content:center;padding:20px}
-#lightbox.open{display:flex}
-#lightbox img{max-width:95%;max-height:85%;object-fit:contain;border-radius:12px;box-shadow:0 0 35px #7ddfff}
-#lightbox-close{position:absolute;top:20px;right:25px;background:transparent;color:white;border:0;font-size:35px;cursor:pointer}
+/* GALAXY NEBULA */
 
-@media(max-width:600px){
-#galaxy{justify-content:center}
-#planet-area{gap:25px 22px;margin-top:35px}
-.planet{width:105px;height:105px}
-.planet-name{font-size:14px}
-#gallery{padding:20px 12px}
-.photo-card img{height:190px}
+.nebula {
+    position: absolute;
+    width: 140vw;
+    height: 140vh;
+    left: -20vw;
+    top: -20vh;
+    background:
+        radial-gradient(ellipse at 25% 35%, rgba(93,42,180,.27), transparent 35%),
+        radial-gradient(ellipse at 75% 55%, rgba(17,105,180,.23), transparent 32%),
+        radial-gradient(ellipse at 50% 80%, rgba(168,48,145,.18), transparent 35%);
+    filter: blur(25px);
+    animation: nebulaMove 24s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes nebulaMove {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1.15) rotate(8deg) translate(3%, -2%); }
+}
+
+/* STARS */
+
+#stars {
+    position: absolute;
+    inset: -100%;
+    width: 300%;
+    height: 300%;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 80px 100px, #b9caff, transparent),
+        radial-gradient(2px 2px at 160px 170px, white, transparent),
+        radial-gradient(1px 1px at 230px 60px, #c5aaff, transparent),
+        radial-gradient(2px 2px at 300px 220px, white, transparent);
+    background-size: 340px 280px;
+    animation: starDrift 100s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes starDrift {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(-180px, -250px) rotate(4deg); }
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px white;
+    animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .2; transform: scale(.6); }
+    to { opacity: 1; transform: scale(1.5); }
+}
+
+/* DISTANT ASTEROIDS */
+
+.asteroid {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #b8a7a0;
+    box-shadow: 0 0 8px #b8a7a0;
+    animation: asteroidMove linear infinite;
+}
+
+@keyframes asteroidMove {
+    from { transform: translate(110vw, -10vh) rotate(0deg); }
+    to { transform: translate(-20vw, 110vh) rotate(720deg); }
+}
+
+/* METEORS */
+
+.meteor {
+    position: absolute;
+    width: 170px;
+    height: 2px;
+    background: linear-gradient(90deg, white, #78dfff, transparent);
+    box-shadow: 0 0 15px #78dfff;
+    transform: rotate(-35deg);
+    z-index: 20;
+    animation: meteorFly 1.2s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes meteorFly {
+    from { transform: translate(0, 0) rotate(-35deg); opacity: 1; }
+    to { transform: translate(-650px, 500px) rotate(-35deg); opacity: 0; }
+}
+
+/* INTRO */
+
+#intro {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle, #21175b, #05051a 65%, #01020a);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+#intro.hide {
+    opacity: 0;
+    transform: scale(2.5);
+    pointer-events: none;
+}
+
+.intro-content {
+    animation: introFloat 3s ease-in-out infinite;
+}
+
+.intro-content h1 {
+    font-size: clamp(30px, 7vw, 76px);
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px #8a7bff, 0 0 55px #398dff;
+}
+
+.intro-content p {
+    color: #c9c8ff;
+    letter-spacing: 4px;
+    margin-top: 20px;
+}
+
+@keyframes introFloat {
+    50% { transform: translateY(-15px); }
+}
+
+/* EXPLOSION */
+
+#explosion {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 60;
+    pointer-events: none;
+}
+
+#explosion.go {
+    animation: explode 1.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+        box-shadow: 0 0 30px 20px white;
+    }
+    50% {
+        opacity: 1;
+        box-shadow:
+            0 0 70px 80px #b4aaff,
+            0 0 150px 150px #684cff,
+            0 0 250px 250px #263cff;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(100);
+        opacity: 0;
+    }
+}
+
+/* GALAXY WORLD */
+
+#galaxy {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease;
+    overflow: hidden;
+}
+
+#galaxy.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.galaxy-heading {
+    position: absolute;
+    top: 7%;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.galaxy-heading h2 {
+    font-size: clamp(22px, 4vw, 42px);
+    letter-spacing: 4px;
+    text-shadow: 0 0 25px #8e80ff;
+}
+
+.galaxy-heading p {
+    color: #c4c8ff;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-top: 12px;
+}
+
+/* PLANET ORBITS */
+
+.orbit {
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    border: 1px solid rgba(180,180,255,.16);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.orbit-one {
+    width: 370px;
+    height: 220px;
+    transform: translate(-50%, -50%) rotate(-22deg);
+}
+
+.orbit-two {
+    width: 690px;
+    height: 390px;
+    transform: translate(-50%, -50%) rotate(18deg);
+}
+
+.orbit-three {
+    width: 990px;
+    height: 570px;
+    transform: translate(-50%, -50%) rotate(-12deg);
+}
+
+/* PLANET POSITIONS */
+
+.planet-position {
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    transform-origin: center;
+    cursor: pointer;
+    z-index: 8;
+}
+
+.position-aai {
+    margin-left: -330px;
+    margin-top: -110px;
+    animation: orbitAAI 18s ease-in-out infinite;
+}
+
+.position-baba {
+    margin-left: 140px;
+    margin-top: -180px;
+    animation: orbitBABA 21s ease-in-out infinite;
+}
+
+.position-childhood {
+    margin-left: -20px;
+    margin-top: 120px;
+    animation: orbitChild 16s ease-in-out infinite;
+}
+
+@keyframes orbitAAI {
+    0%, 100% { transform: translate(0,0); }
+    50% { transform: translate(65px,40px); }
+}
+
+@keyframes orbitBABA {
+    0%, 100% { transform: translate(0,0); }
+    50% { transform: translate(-55px,55px); }
+}
+
+@keyframes orbitChild {
+    0%, 100% { transform: translate(0,0); }
+    50% { transform: translate(30px,-55px); }
+}
+
+/* 3D PLANETS */
+
+.planet {
+    width: clamp(115px, 16vw, 180px);
+    height: clamp(115px, 16vw, 180px);
+    border-radius: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    box-shadow:
+        inset -25px -20px 35px rgba(0,0,0,.75),
+        inset 8px 5px 22px rgba(255,255,255,.25),
+        0 0 35px var(--glow);
+    transition: transform .4s ease, filter .4s ease;
+}
+
+.planet:hover {
+    transform: scale(1.15);
+    filter: brightness(1.25);
+}
+
+.planet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        repeating-linear-gradient(
+            165deg,
+            transparent 0px,
+            rgba(255,255,255,.1) 10px,
+            transparent 18px,
+            rgba(0,0,0,.13) 30px
+        );
+    opacity: .8;
+    animation: surfaceMove 10s linear infinite;
+}
+
+.planet::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.2);
+    box-shadow: 0 0 20px var(--glow);
+}
+
+@keyframes surfaceMove {
+    from { background-position: 0 0; }
+    to { background-position: 0 180px; }
+}
+
+.aai {
+    --glow: #ff68b5;
+    background:
+        radial-gradient(circle at 28% 25%, #ffe0ee 0%, #ff9bc7 13%, #ed4d9a 40%, #77205e 75%, #170b2a 100%);
+}
+
+.baba {
+    --glow: #4daaff;
+    background:
+        radial-gradient(circle at 28% 25%, #d2f5ff 0%, #6acbff 14%, #237ce8 42%, #15316c 76%, #071127 100%);
+}
+
+.childhood {
+    --glow: #dc9cff;
+    background:
+        radial-gradient(circle at 28% 25%, #fff0c8 0%, #e7a9ff 15%, #a84de5 45%, #51226e 78%, #190a29 100%);
+}
+
+/* PLANET RINGS */
+
+.planet-ring {
+    position: absolute;
+    width: 145%;
+    height: 42%;
+    left: -22%;
+    top: 28%;
+    border: 5px solid rgba(255,255,255,.55);
+    border-left-color: rgba(255,255,255,.15);
+    border-right-color: rgba(255,255,255,.15);
+    border-radius: 50%;
+    transform: rotate(-25deg);
+    box-shadow: 0 0 12px var(--glow);
+    pointer-events: none;
+}
+
+.planet-label {
+    position: absolute;
+    top: calc(100% + 22px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px white;
+    text-align: center;
+}
+
+.planet-hint {
+    display: block;
+    color: #c7c9ff;
+    font-size: 10px;
+    margin-top: 7px;
+    letter-spacing: 1px;
+}
+
+/* SMALL DISTANT PLANETS */
+
+.distant-planet {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #b18aff 45%, #251052);
+    box-shadow: 0 0 18px #a77cff;
+    animation: distantFloat 9s ease-in-out infinite;
+}
+
+.distant-one { left: 15%; top: 70%; }
+.distant-two { right: 13%; top: 25%; width: 17px; height: 17px; animation-delay: 2s; }
+.distant-three { right: 28%; bottom: 10%; width: 12px; height: 12px; animation-delay: 4s; }
+
+@keyframes distantFloat {
+    50% { transform: translateY(-35px) translateX(20px); }
+}
+
+/* SPACE TRAVEL EFFECT */
+
+#travel-stars {
+    position: absolute;
+    inset: -100%;
+    width: 300%;
+    height: 300%;
+    z-index: 25;
+    opacity: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 30px 40px, white, transparent),
+        radial-gradient(2px 2px at 100px 100px, #b8dfff, transparent),
+        radial-gradient(3px 3px at 200px 150px, white, transparent);
+    background-size: 250px 200px;
+}
+
+#universe.traveling #travel-stars {
+    opacity: 1;
+    animation: warp 1.8s ease-in forwards;
+}
+
+@keyframes warp {
+    from {
+        transform: scale(.7);
+        filter: blur(0);
+    }
+    to {
+        transform: scale(3.5);
+        filter: blur(5px);
+    }
+}
+
+#universe.traveling #galaxy {
+    animation: cameraZoom 2.2s ease-in forwards;
+}
+
+@keyframes cameraZoom {
+    0% { transform: scale(1); filter: brightness(1); }
+    60% { transform: scale(1.5); filter: brightness(1.4); }
+    100% { transform: scale(3.5); filter: brightness(1.8); }
+}
+
+#ship {
+    position: absolute;
+    z-index: 30;
+    left: -100px;
+    top: 65%;
+    font-size: 55px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#ship.fly {
+    opacity: 1;
+    animation: shipTravel 2.2s ease-in-out forwards;
+}
+
+@keyframes shipTravel {
+    0% { left: -100px; top: 65%; transform: rotate(15deg) scale(.5); }
+    45% { left: 45%; top: 45%; transform: rotate(0deg) scale(1.6); }
+    100% { left: 110%; top: 25%; transform: rotate(-15deg) scale(.8); }
+}
+
+/* PLANET MEMORY WORLD */
+
+#gallery {
+    position: absolute;
+    inset: 0;
+    z-index: 40;
+    background:
+        radial-gradient(ellipse at center, #21164d 0%, #09091f 60%, #01020a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.7);
+    transition: all 1.2s ease;
+}
+
+#gallery.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+#gallery h2 {
+    font-size: clamp(30px, 6vw, 55px);
+    letter-spacing: 5px;
+    text-align: center;
+    text-shadow: 0 0 25px #a28cff;
+}
+
+#gallery .message {
+    color: #d0ccff;
+    margin: 15px 0 25px;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.photo-card {
+    width: min(85vw, 550px);
+    height: min(53vh, 420px);
+    border: 2px solid rgba(183,177,255,.7);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(130,100,255,.5);
+    background: #090817;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #080817;
+}
+
+.photo-caption {
+    margin-top: 18px;
+    color: #eeeaff;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.missing-photo {
+    width: min(85vw, 550px);
+    height: min(53vh, 420px);
+    border: 2px dashed #998aff;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    color: #dcd7ff;
+    gap: 15px;
+}
+
+.back-button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    border: 1px solid #9a8dff;
+    background: rgba(100,80,255,.2);
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.back-button:hover {
+    background: #6652d9;
+    box-shadow: 0 0 20px #8774ff;
+}
+
+/* MOBILE */
+
+@media(max-width: 650px) {
+    .galaxy-heading { top: 6%; }
+
+    .orbit-one { width: 250px; height: 170px; }
+    .orbit-two { width: 450px; height: 300px; }
+    .orbit-three { width: 650px; height: 420px; }
+
+    .position-aai {
+        margin-left: -135px;
+        margin-top: -145px;
+    }
+
+    .position-baba {
+        margin-left: 25px;
+        margin-top: -10px;
+    }
+
+    .position-childhood {
+        margin-left: -130px;
+        margin-top: 115px;
+    }
+
+    .planet {
+        width: 105px;
+        height: 105px;
+    }
+
+    .planet-label {
+        font-size: 13px;
+        top: calc(100% + 17px);
+    }
+
+    .planet-hint { font-size: 8px; }
 }
 </style>
 </head>
 
 <body>
+
 <div id="universe">
 
-<div id="stars"></div>
-<div id="meteor-layer"></div>
-<div id="explosion"></div>
+    <div class="nebula"></div>
+    <div id="stars"></div>
+    <div id="travel-stars"></div>
 
-<section id="intro">
-<h1>OUR FAMILY GALAXY</h1>
-<p>A UNIVERSE OF LOVE ✨</p>
-</section>
+    <div class="distant-planet distant-one"></div>
+    <div class="distant-planet distant-two"></div>
+    <div class="distant-planet distant-three"></div>
 
-<div id="ship">🚀</div>
+    <div id="intro">
+        <div class="intro-content">
+            <h1>OUR FAMILY GALAXY</h1>
+            <p>A UNIVERSE OF LOVE ✨</p>
+        </div>
+    </div>
 
-<div id="travel-message">Travelling through our universe...</div>
+    <div id="explosion"></div>
 
-<section id="galaxy">
-<h2>Explore Our Galaxy ✨</h2>
-<p class="subtitle">Three planets. Countless memories. One beautiful universe.</p>
+    <div id="galaxy">
 
-<div id="planet-area">
+        <div class="galaxy-heading">
+            <h2>OUR LITTLE UNIVERSE ✨</h2>
+            <p>Travel through the universe of our memories</p>
+        </div>
 
-<div class="planet-wrap" onclick="travelTo('AAI')">
-<div class="planet aai"><div class="ring-planet"></div></div>
-<div class="planet-name">❤️ AAI</div>
-<div class="planet-hint">Explore her world</div>
-</div>
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
 
-<div class="planet-wrap" onclick="travelTo('BABA')">
-<div class="planet baba"></div>
-<div class="planet-name">💙 BABA</div>
-<div class="planet-hint">Explore his world</div>
-</div>
+        <!-- AAI PLANET -->
 
-<div class="planet-wrap" onclick="travelTo('CHILDHOOD')">
-<div class="planet childhood"></div>
-<div class="planet-name">🌟 CHILDHOOD</div>
-<div class="planet-hint">Relive our memories</div>
-</div>
+        <div class="planet-position position-aai" onclick="travelTo('aai')">
+            <div class="planet aai">
+                <div class="planet-ring"></div>
+            </div>
+            <div class="planet-label">
+                AAI ❤️
+                <span class="planet-hint">EXPLORE WORLD</span>
+            </div>
+        </div>
 
-</div>
-</section>
-</div>
+        <!-- BABA PLANET -->
 
-<section id="gallery">
-<h2 id="gallery-title"></h2>
-<p id="gallery-description"></p>
-<div id="photo-grid"></div>
-<button class="back-btn" onclick="returnToGalaxy()">← RETURN TO GALAXY</button>
-</section>
+        <div class="planet-position position-baba" onclick="travelTo('baba')">
+            <div class="planet baba">
+                <div class="planet-ring"></div>
+            </div>
+            <div class="planet-label">
+                BABA 💙
+                <span class="planet-hint">EXPLORE WORLD</span>
+            </div>
+        </div>
 
-<div id="lightbox" onclick="closePhoto()">
-<button id="lightbox-close" onclick="closePhoto()">×</button>
-<img id="lightbox-image" alt="Memory photo">
+        <!-- CHILDHOOD PLANET -->
+
+        <div class="planet-position position-childhood" onclick="travelTo('childhood')">
+            <div class="planet childhood">
+                <div class="planet-ring"></div>
+            </div>
+            <div class="planet-label">
+                CHILDHOOD 🌟
+                <span class="planet-hint">EXPLORE WORLD</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="ship">🚀</div>
+
+    <div id="gallery">
+        <h2 id="gallery-title"></h2>
+        <p class="message" id="gallery-message"></p>
+
+        <div id="photo-area"></div>
+
+        <p class="photo-caption" id="photo-caption"></p>
+
+        <button class="back-button" onclick="returnToGalaxy()">
+            ← RETURN TO GALAXY
+        </button>
+    </div>
+
 </div>
 
 <script>
-/* STAR FIELD */
-const stars=document.getElementById("stars");
-for(let i=0;i<220;i++){
- const s=document.createElement("span");
- s.className="star";
- s.style.left=Math.random()*100+"%";
- s.style.top=Math.random()*100+"%";
- const size=Math.random()*3+1;
- s.style.width=size+"px";
- s.style.height=size+"px";
- s.style.animationDelay=Math.random()*3+"s";
- stars.appendChild(s);
+
+/* CREATE STARS */
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 250; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+
+    const size = Math.random() * 2 + 1;
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 3 + "s";
+
+    stars.appendChild(star);
+}
+
+/* ASTEROIDS */
+
+for (let i = 0; i < 18; i++) {
+    const asteroid = document.createElement("div");
+    asteroid.className = "asteroid";
+
+    asteroid.style.left = Math.random() * 100 + "%";
+    asteroid.style.top = Math.random() * 100 + "%";
+    asteroid.style.animationDuration = (12 + Math.random() * 20) + "s";
+    asteroid.style.animationDelay = (-Math.random() * 20) + "s";
+
+    document.getElementById("universe").appendChild(asteroid);
 }
 
 /* METEORS */
-function shootMeteor(){
- const m=document.createElement("div");
- m.className="meteor";
- m.style.left=(Math.random()*110+5)+"%";
- m.style.top=(Math.random()*70-10)+"%";
- document.getElementById("meteor-layer").appendChild(m);
- setTimeout(()=>m.remove(),1300);
+
+function shootMeteor() {
+    const meteor = document.createElement("div");
+    meteor.className = "meteor";
+    meteor.style.left = (20 + Math.random() * 100) + "%";
+    meteor.style.top = (Math.random() * 60) + "%";
+
+    document.getElementById("universe").appendChild(meteor);
+
+    setTimeout(() => meteor.remove(), 1300);
 }
 
-/* PHOTO CONFIGURATION
-   Put your photos in a folder named "images".
-   Change the filenames below to match your actual photos.
-*/
-const memories={
- AAI:{
-  title:"A Universe Made of Love ❤️",
-  description:"Every little moment with Aai is a beautiful star in our universe.",
-  photos:[
-   {src:"images/aai1.jpg",caption:"Our beautiful Aai ❤️"},
-   {src:"images/aai2.jpg",caption:"A memory to treasure ✨"},
-   {src:"images/aai3.jpg",caption:"A little piece of happiness 💗"},
-   {src:"images/aai4.jpg",caption:"Forever special 🌷"}
-  ]
- },
- BABA:{
-  title:"Our Guiding Star 💙",
-  description:"Every journey feels brighter with Baba by our side.",
-  photos:[
-   {src:"images/baba1.jpg",caption:"Our dear Baba 💙"},
-   {src:"images/baba2.jpg",caption:"A beautiful memory ✨"},
-   {src:"images/baba3.jpg",caption:"Always our strength 🌌"},
-   {src:"images/baba4.jpg",caption:"Forever in our hearts"}
-  ]
- },
- CHILDHOOD:{
-  title:"Back to Our Little Universe 🌟",
-  description:"The silly moments, the laughter, the little adventures and memories we never want to forget.",
-  photos:[
-   {src:"images/childhood1.jpg",caption:"The good old days 🌟"},
-   {src:"images/childhood2.jpg",caption:"Little moments, big memories"},
-   {src:"images/childhood3.jpg",caption:"Endless laughter 💫"},
-   {src:"images/childhood4.jpg",caption:"Memories forever ❤️"}
-  ]
- }
+function meteorShower(count, interval) {
+    let created = 0;
+
+    const timer = setInterval(() => {
+        shootMeteor();
+        created++;
+
+        if (created >= count) clearInterval(timer);
+    }, interval);
+}
+
+/* ONLY THREE MEMORIES */
+
+const memories = {
+    aai: {
+        title: "AAI ❤️",
+        message: "My first home, my forever love.",
+        image: "images/aai.jpg",
+        caption: "A little piece of my heart ❤️"
+    },
+
+    baba: {
+        title: "BABA 💙",
+        message: "My strength, my guide, my forever hero.",
+        image: "images/baba.jpg",
+        caption: "My forever hero 💙"
+    },
+
+    childhood: {
+        title: "CHILDHOOD 🌟",
+        message: "Little moments, endless memories.",
+        image: "images/childhood.jpg",
+        caption: "The memories I will treasure forever 🌟"
+    }
 };
 
-/* AUTOMATIC GALAXY OPENING */
-let openingTimers=[];
-function startOpening(){
- openingTimers.forEach(clearTimeout);
- openingTimers=[];
- document.getElementById("galaxy").classList.remove("show");
- document.getElementById("intro").style.opacity="1";
- document.getElementById("meteor-layer").innerHTML="";
- document.getElementById("explosion").classList.remove("go");
+/* OPENING */
 
- for(let i=0;i<25;i++){
-  openingTimers.push(setTimeout(shootMeteor,i*150));
- }
+function startOpening() {
 
- openingTimers.push(setTimeout(()=>{
-  const e=document.getElementById("explosion");
-  e.classList.remove("go");
-  void e.offsetWidth;
-  e.classList.add("go");
- },2100));
+    meteorShower(18, 150);
 
- openingTimers.push(setTimeout(()=>{
-  document.getElementById("intro").style.opacity="0";
-  document.getElementById("galaxy").classList.add("show");
- },3500));
+    setTimeout(() => {
+        document.getElementById("explosion").classList.add("go");
+    }, 1700);
+
+    setTimeout(() => {
+        document.getElementById("intro").classList.add("hide");
+    }, 2100);
+
+    setTimeout(() => {
+        document.getElementById("galaxy").classList.add("show");
+    }, 2900);
+
+    setTimeout(() => {
+        document.getElementById("intro").style.display = "none";
+    }, 3700);
 }
 
-/* TRAVEL TO PLANET */
-let travelTimer;
-function travelTo(planet){
- const ship=document.getElementById("ship");
- const message=document.getElementById("travel-message");
- const galaxy=document.getElementById("galaxy");
+/* SPACE TRAVEL */
 
- galaxy.classList.remove("show");
- ship.classList.remove("fly");
- void ship.offsetWidth;
- ship.classList.add("fly");
+let travelling = false;
+let selectedPlanet = null;
 
- message.textContent="🚀 Travelling to "+planet+"...";
- message.classList.add("show");
+function travelTo(planetName) {
 
- for(let i=0;i<12;i++){
-  setTimeout(shootMeteor,i*100);
- }
+    if (travelling) return;
 
- clearTimeout(travelTimer);
- travelTimer=setTimeout(()=>{
-  ship.classList.remove("fly");
-  message.classList.remove("show");
-  openGallery(planet);
- },2100);
+    travelling = true;
+    selectedPlanet = planetName;
+
+    const universe = document.getElementById("universe");
+    const galaxy = document.getElementById("galaxy");
+    const ship = document.getElementById("ship");
+
+    universe.classList.add("traveling");
+
+    ship.classList.remove("fly");
+    void ship.offsetWidth;
+    ship.classList.add("fly");
+
+    meteorShower(12, 130);
+
+    setTimeout(() => {
+        galaxy.style.visibility = "hidden";
+        galaxy.style.opacity = "0";
+
+        universe.classList.remove("traveling");
+        ship.classList.remove("fly");
+
+        openGallery(planetName);
+        travelling = false;
+    }, 2300);
 }
 
-/* OPEN PLANET MEMORY GALLERY */
-function openGallery(planet){
- const data=memories[planet];
- if(!data)return;
+/* OPEN PLANET */
 
- document.getElementById("gallery-title").textContent=data.title;
- document.getElementById("gallery-description").textContent=data.description;
+function openGallery(planetName) {
 
- const grid=document.getElementById("photo-grid");
- grid.innerHTML="";
+    const memory = memories[planetName];
 
- data.photos.forEach((photo,index)=>{
-  const card=document.createElement("div");
-  card.className="photo-card";
-  card.style.animationDelay=(index*.15)+"s";
+    document.getElementById("gallery-title").textContent = memory.title;
+    document.getElementById("gallery-message").textContent = memory.message;
+    document.getElementById("photo-caption").textContent = memory.caption;
 
-  const img=document.createElement("img");
-  img.src=photo.src;
-  img.alt=photo.caption;
-  img.loading="lazy";
+    const photoArea = document.getElementById("photo-area");
+    photoArea.innerHTML = "";
 
-  img.onerror=()=>{
-   img.alt="Photo missing: "+photo.src;
-   img.style.objectFit="contain";
-   img.style.padding="20px";
-   img.style.color="white";
-   img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="#101b3d"/><text x="50%" y="45%" fill="#fff" text-anchor="middle" font-size="20">Add your photo here</text><text x="50%" y="58%" fill="#9ddcff" text-anchor="middle" font-size="14">'+photo.src+'</text></svg>'
-   );
-   img.onclick=null;
-  };
+    const card = document.createElement("div");
+    card.className = "photo-card";
 
-  img.onclick=()=>showPhoto(img.src);
+    const img = document.createElement("img");
+    img.src = memory.image;
+    img.alt = memory.title;
 
-  const caption=document.createElement("p");
-  caption.textContent=photo.caption;
+    img.onerror = function() {
+        photoArea.innerHTML = "";
 
-  card.appendChild(img);
-  card.appendChild(caption);
-  grid.appendChild(card);
- });
+        const missing = document.createElement("div");
+        missing.className = "missing-photo";
 
- document.getElementById("gallery").classList.add("open");
+        const heading = document.createElement("h3");
+        heading.textContent = "PHOTO NOT FOUND";
+
+        const message = document.createElement("p");
+        message.textContent = "Please check your file: " + memory.image;
+
+        missing.appendChild(heading);
+        missing.appendChild(message);
+        photoArea.appendChild(missing);
+    };
+
+    card.appendChild(img);
+    photoArea.appendChild(card);
+
+    document.getElementById("gallery").classList.add("open");
 }
 
-/* PHOTO LIGHTBOX */
-function showPhoto(src){
- document.getElementById("lightbox-image").src=src;
- document.getElementById("lightbox").classList.add("open");
-}
-function closePhoto(){
- document.getElementById("lightbox").classList.remove("open");
+/* RETURN TO SPACE */
+
+function returnToGalaxy() {
+
+    document.getElementById("gallery").classList.remove("open");
+
+    setTimeout(() => {
+        const galaxy = document.getElementById("galaxy");
+
+        galaxy.style.visibility = "visible";
+        galaxy.style.opacity = "1";
+    }, 700);
 }
 
-/* RETURN TO GALAXY */
-function returnToGalaxy(){
- document.getElementById("gallery").classList.remove("open");
- document.getElementById("galaxy").classList.add("show");
-}
+/* AUTOMATIC START */
 
-/* ESCAPE KEY */
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape")closePhoto();
-});
+window.addEventListener("load", startOpening);
 
-/* START AUTOMATICALLY */
-if(document.readyState==="loading"){
- document.addEventListener("DOMContentLoaded",startOpening,{once:true});
-}else{
- startOpening();
-}
 </script>
+
 </body>
 </html>
