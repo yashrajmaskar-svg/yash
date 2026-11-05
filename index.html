@@ -4,613 +4,333 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Family Galaxy – A Universe of Love</title>
+<title>Our Galaxy | A Universe of Love</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02030d;color:white;font-family:Arial,sans-serif;overflow:hidden}
+#universe{position:fixed;inset:0;overflow:hidden;background:radial-gradient(ellipse at center,#171d50,#080b22 55%,#01020a)}
+#stars,#meteor-layer{position:absolute;inset:0;pointer-events:none}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.15;transform:scale(.5)}}
+
+.meteor{position:absolute;width:180px;height:3px;background:linear-gradient(90deg,transparent,#65eaff,white);box-shadow:0 0 15px #49cfff;transform:rotate(-35deg);animation:meteor 1.2s linear forwards}
+@keyframes meteor{0%{opacity:0;transform:translate(0,0) rotate(-35deg)}15%{opacity:1}100%{opacity:0;transform:translate(-700px,700px) rotate(-35deg)}}
+
+#intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;z-index:5;transition:opacity 1.5s;pointer-events:none}
+#intro h1{font-size:clamp(32px,7vw,75px);letter-spacing:5px;text-shadow:0 0 25px #56dfff,0 0 60px #345cff}
+#intro p{margin-top:20px;color:#b8eaff;letter-spacing:5px}
+
+#explosion{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:white;transform:translate(-50%,-50%);opacity:0;z-index:4;pointer-events:none}
+#explosion.go{animation:explode 1.5s ease-out}
+@keyframes explode{0%{opacity:1;box-shadow:0 0 50px 30px white}100%{opacity:0;transform:translate(-50%,-50%) scale(100);box-shadow:0 0 100px 100px #426dff}}
+
+#galaxy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;opacity:0;visibility:hidden;transition:opacity 1.5s;z-index:2}
+#galaxy.show{opacity:1;visibility:visible}
+#galaxy h2{font-size:clamp(28px,5vw,52px);color:#c4eaff;text-shadow:0 0 20px #429bff}
+.subtitle{color:#a9c9ed;margin-top:12px;line-height:1.6}
+
+#ship{position:absolute;left:50%;bottom:12%;font-size:35px;z-index:8;opacity:0;pointer-events:none;transform:translateX(-50%)}
+#ship.fly{opacity:1;animation:shipFly 2.1s ease-in forwards}
+@keyframes shipFly{
+0%{transform:translate(-50%,0) scale(1);opacity:1}
+50%{transform:translate(-50%,-45vh) scale(1.5)}
+100%{transform:translate(-50%,-120vh) scale(.1);opacity:0}
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  background: #02030c;
-  color: white;
-  font-family: Arial, sans-serif;
+#planet-area{display:flex;justify-content:center;align-items:center;gap:clamp(25px,7vw,90px);flex-wrap:wrap;margin-top:55px;transition:transform 1s}
+.planet-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;cursor:pointer;transition:.4s}
+.planet-wrap:hover{transform:translateY(-14px) scale(1.08)}
+.planet{
+width:clamp(105px,17vw,165px);
+height:clamp(105px,17vw,165px);
+border-radius:50%;
+position:relative;
+box-shadow:inset -20px -15px 35px #0009,0 0 30px #4e91ff;
+animation:float 5s ease-in-out infinite;
 }
+.planet:after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(120deg,#ffffff55,transparent 45%,#0008)}
+.aai{background:radial-gradient(circle at 30% 25%,#ffe7fa,#d15aaf 35%,#4c247c 75%,#120d37)}
+.baba{background:radial-gradient(circle at 30% 25%,#c8f5ff,#428edb 40%,#18316c 75%,#080e2d)}
+.childhood{background:radial-gradient(circle at 30% 25%,#fff4b2,#e6a74d 38%,#a3434d 75%,#32143d)}
+.ring-planet{position:absolute;width:140%;height:35%;border:3px solid #d6d7ff99;border-radius:50%;left:-20%;top:35%;transform:rotate(-20deg);box-shadow:0 0 12px #9ddcff}
+@keyframes float{50%{transform:translateY(-16px)}}
+.planet-name{font-size:18px;font-weight:bold;letter-spacing:3px;text-shadow:0 0 12px #8fdfff}
+.planet-hint{font-size:12px;color:#a7c5ec;letter-spacing:1px}
 
-body {
-  overflow: hidden;
-}
+#travel-message{position:absolute;top:12%;left:0;right:0;text-align:center;color:#c7edff;font-size:clamp(17px,3vw,26px);opacity:0;z-index:10}
+#travel-message.show{opacity:1}
 
-#space {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse at center, #17164a 0%, #080b24 48%, #02030c 100%);
-}
+#gallery{position:absolute;inset:0;z-index:20;background:radial-gradient(ellipse at center,#1b2459,#070b20 70%,#01020a);display:flex;flex-direction:column;align-items:center;padding:35px 20px;overflow-y:auto;opacity:0;visibility:hidden;transform:scale(.1);transition:opacity 1s,transform 1s,visibility 1s}
+#gallery.open{opacity:1;visibility:visible;transform:scale(1)}
+#gallery h2{font-size:clamp(30px,6vw,55px);color:#c6ecff;text-shadow:0 0 20px #399cff;margin:25px 0 12px}
+#gallery p{color:#d2e3ff;text-align:center;line-height:1.7;margin-bottom:25px}
+#photo-grid{width:min(100%,1000px);display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;padding:10px}
+.photo-card{background:#ffffff10;border:1px solid #9ddcff55;border-radius:18px;padding:10px;box-shadow:0 0 25px #244c9b55;animation:photoAppear .8s both}
+@keyframes photoAppear{from{opacity:0;transform:translateY(35px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.photo-card img{width:100%;height:220px;object-fit:cover;border-radius:12px;background:#101b3d}
+.photo-card p{margin:12px 5px 5px;color:#e6f4ff;font-size:14px}
+.back-btn{margin:25px auto 40px;border:1px solid #9beaff;background:#122b58;color:white;padding:13px 25px;border-radius:30px;cursor:pointer;letter-spacing:2px}
+.back-btn:hover{background:#2456a5}
+#lightbox{position:fixed;inset:0;z-index:30;background:#000e;display:none;align-items:center;justify-content:center;padding:20px}
+#lightbox.open{display:flex}
+#lightbox img{max-width:95%;max-height:85%;object-fit:contain;border-radius:12px;box-shadow:0 0 35px #7ddfff}
+#lightbox-close{position:absolute;top:20px;right:25px;background:transparent;color:white;border:0;font-size:35px;cursor:pointer}
 
-#stars, #meteors {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle {
-  from { opacity: .2; }
-  to { opacity: 1; }
-}
-
-.meteor {
-  position: absolute;
-  width: 190px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #8df5ff, white);
-  box-shadow: 0 0 15px #56dfff, 0 0 30px #278dff;
-  transform: rotate(-35deg);
-  animation: shoot 1.2s linear forwards;
-}
-
-@keyframes shoot {
-  0% {
-    opacity: 0;
-    transform: translate(0,0) rotate(-35deg);
-  }
-  15% { opacity: 1; }
-  100% {
-    opacity: 0;
-    transform: translate(-700px,700px) rotate(-35deg);
-  }
-}
-
-#burst {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  background: white;
-  opacity: 0;
-  z-index: 5;
-  pointer-events: none;
-}
-
-#burst.active {
-  animation: flash 1.5s ease-out forwards;
-}
-
-@keyframes flash {
-  0% {
-    opacity: 0;
-    transform: translate(-50%,-50%) scale(.1);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(-50%,-50%) scale(3);
-    box-shadow: 0 0 100px 70px #8ceeff;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%,-50%) scale(35);
-    box-shadow: 0 0 100px 70px #315cff;
-  }
-}
-
-.ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  border: 3px solid #9bf5ff;
-  border-radius: 50%;
-  transform: translate(-50%,-50%);
-  opacity: 0;
-  z-index: 4;
-  pointer-events: none;
-}
-
-.ring.active {
-  animation: ring 2s ease-out forwards;
-}
-
-@keyframes ring {
-  0% {
-    width: 20px;
-    height: 20px;
-    opacity: 1;
-    border-width: 8px;
-    box-shadow: 0 0 40px #48dfff;
-  }
-  100% {
-    width: 180vmax;
-    height: 180vmax;
-    opacity: 0;
-    border-width: 1px;
-  }
-}
-
-/* INTRO */
-
-#intro {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  z-index: 3;
-  transition: opacity 1.5s;
-  pointer-events: none;
-}
-
-#intro h1 {
-  font-size: clamp(30px,7vw,75px);
-  letter-spacing: 5px;
-  text-shadow: 0 0 20px #58dfff, 0 0 50px #375dff;
-}
-
-#intro p {
-  margin-top: 18px;
-  letter-spacing: 4px;
-  color: #a8dfff;
-  font-size: clamp(12px,2vw,18px);
-}
-
-/* MAIN GALAXY */
-
-#journey {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 25px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 2s;
-  z-index: 2;
-}
-
-#journey.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-#journey h2 {
-  font-size: clamp(30px,6vw,65px);
-  color: #b8eaff;
-  text-shadow: 0 0 25px #398cff;
-  margin-bottom: 20px;
-}
-
-#journey p {
-  max-width: 650px;
-  font-size: clamp(15px,2.5vw,21px);
-  line-height: 1.8;
-  color: #e2eaff;
-}
-
-.planets {
-  display: flex;
-  gap: clamp(12px,4vw,40px);
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 45px;
-}
-
-.planet {
-  width: clamp(90px,17vw,145px);
-  height: clamp(90px,17vw,145px);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  font-size: clamp(12px,2vw,17px);
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid #a5dfff;
-  box-shadow: 0 0 25px #398cff, inset 0 0 25px #315dff;
-  transition: transform .4s, box-shadow .4s;
-  animation: float 4s ease-in-out infinite;
-}
-
-.planet:nth-child(1) {
-  background: radial-gradient(circle at 30% 30%,#a7eaff,#3455a9 45%,#090d35);
-}
-
-.planet:nth-child(2) {
-  background: radial-gradient(circle at 30% 30%,#ffe0a3,#b65e65 45%,#32123e);
-  animation-delay: .5s;
-}
-
-.planet:nth-child(3) {
-  background: radial-gradient(circle at 30% 30%,#c8ffdf,#318b8a 45%,#092b43);
-  animation-delay: 1s;
-}
-
-.planet:nth-child(4) {
-  background: radial-gradient(circle at 30% 30%,#ffe6bd,#a16cce 45%,#25164b);
-  animation-delay: 1.5s;
-}
-
-.planet:hover {
-  transform: scale(1.18);
-  box-shadow: 0 0 55px #8deaff;
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-/* MEMORY SCENES */
-
-#memory-scene {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 25px;
-  background: radial-gradient(circle,#263d83 0%,#101638 45%,#02030c 100%);
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(.1);
-  transition: opacity 1s ease, transform 1s ease, visibility 1s;
-  overflow-y: auto;
-}
-
-#memory-scene.open {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
-
-#memory-scene h2 {
-  font-size: clamp(35px,7vw,65px);
-  color: #b8eaff;
-  text-shadow: 0 0 25px #398cff;
-  margin-bottom: 20px;
-}
-
-#memory-scene p {
-  max-width: 650px;
-  font-size: clamp(16px,3vw,22px);
-  line-height: 1.8;
-  color: white;
-}
-
-#back-galaxy, #restart {
-  margin-top: 35px;
-  padding: 13px 28px;
-  border: 1px solid #8deaff;
-  background: transparent;
-  color: white;
-  border-radius: 30px;
-  cursor: pointer;
-  letter-spacing: 2px;
-}
-
-#back-galaxy:hover, #restart:hover {
-  background: #2456a5;
-}
-
-@media(max-width:600px) {
-  #journey {
-    padding: 15px;
-  }
-
-  .planets {
-    gap: 15px;
-    margin-top: 30px;
-  }
-
-  .planet {
-    width: 105px;
-    height: 105px;
-  }
+@media(max-width:600px){
+#galaxy{justify-content:center}
+#planet-area{gap:25px 22px;margin-top:35px}
+.planet{width:105px;height:105px}
+.planet-name{font-size:14px}
+#gallery{padding:20px 12px}
+.photo-card img{height:190px}
 }
 </style>
 </head>
 
 <body>
+<div id="universe">
 
-<div id="space">
+<div id="stars"></div>
+<div id="meteor-layer"></div>
+<div id="explosion"></div>
 
-  <div id="stars"></div>
-  <div id="meteors"></div>
-
-  <div id="burst"></div>
-  <div class="ring" id="ring"></div>
-
-  <!-- AUTOMATIC INTRO -->
-
-  <section id="intro">
-    <h1>OUR FAMILY GALAXY</h1>
-    <p>A UNIVERSE OF LOVE</p>
-  </section>
-
-  <!-- MAIN GALAXY -->
-
-  <section id="journey">
-
-    <h2>Welcome to Our Universe ✨</h2>
-
-    <p>
-      Every star holds a memory. Every planet tells a story.
-      Travel through our little universe, where love is endless
-      and our family is the brightest galaxy.
-    </p>
-
-    <div class="planets">
-
-      <div class="planet" data-memory="AAI">
-        AAI ❤️
-      </div>
-
-      <div class="planet" data-memory="BABA">
-        BABA 💙
-      </div>
-
-      <div class="planet" data-memory="CHILDHOOD">
-        CHILDHOOD 🌟
-      </div>
-
-      <div class="planet" data-memory="FAMILY">
-        FAMILY 🌌
-      </div>
-
-    </div>
-
-    <button id="restart">
-      REPLAY GALAXY OPENING
-    </button>
-
-  </section>
-
-</div>
-
-<!-- MEMORY SCREEN -->
-
-<section id="memory-scene">
-
-  <h2 id="memory-title"></h2>
-
-  <p id="memory-text"></p>
-
-  <button id="back-galaxy">
-    ← BACK TO OUR GALAXY
-  </button>
-
+<section id="intro">
+<h1>OUR FAMILY GALAXY</h1>
+<p>A UNIVERSE OF LOVE ✨</p>
 </section>
 
+<div id="ship">🚀</div>
+
+<div id="travel-message">Travelling through our universe...</div>
+
+<section id="galaxy">
+<h2>Explore Our Galaxy ✨</h2>
+<p class="subtitle">Three planets. Countless memories. One beautiful universe.</p>
+
+<div id="planet-area">
+
+<div class="planet-wrap" onclick="travelTo('AAI')">
+<div class="planet aai"><div class="ring-planet"></div></div>
+<div class="planet-name">❤️ AAI</div>
+<div class="planet-hint">Explore her world</div>
+</div>
+
+<div class="planet-wrap" onclick="travelTo('BABA')">
+<div class="planet baba"></div>
+<div class="planet-name">💙 BABA</div>
+<div class="planet-hint">Explore his world</div>
+</div>
+
+<div class="planet-wrap" onclick="travelTo('CHILDHOOD')">
+<div class="planet childhood"></div>
+<div class="planet-name">🌟 CHILDHOOD</div>
+<div class="planet-hint">Relive our memories</div>
+</div>
+
+</div>
+</section>
+</div>
+
+<section id="gallery">
+<h2 id="gallery-title"></h2>
+<p id="gallery-description"></p>
+<div id="photo-grid"></div>
+<button class="back-btn" onclick="returnToGalaxy()">← RETURN TO GALAXY</button>
+</section>
+
+<div id="lightbox" onclick="closePhoto()">
+<button id="lightbox-close" onclick="closePhoto()">×</button>
+<img id="lightbox-image" alt="Memory photo">
+</div>
+
 <script>
-
-/* CREATE STARS */
-
-const stars = document.getElementById("stars");
-
-for (let i = 0; i < 180; i++) {
-
-  const star = document.createElement("span");
-
-  star.className = "star";
-
-  star.style.left = Math.random() * 100 + "%";
-  star.style.top = Math.random() * 100 + "%";
-
-  const size = Math.random() * 3 + 1;
-
-  star.style.width = size + "px";
-  star.style.height = size + "px";
-
-  star.style.animationDelay = Math.random() * 3 + "s";
-
-  stars.appendChild(star);
+/* STAR FIELD */
+const stars=document.getElementById("stars");
+for(let i=0;i<220;i++){
+ const s=document.createElement("span");
+ s.className="star";
+ s.style.left=Math.random()*100+"%";
+ s.style.top=Math.random()*100+"%";
+ const size=Math.random()*3+1;
+ s.style.width=size+"px";
+ s.style.height=size+"px";
+ s.style.animationDelay=Math.random()*3+"s";
+ stars.appendChild(s);
 }
 
-
-/* METEOR ANIMATION */
-
-const meteors = document.getElementById("meteors");
-
-function shootMeteor() {
-
-  const meteor = document.createElement("div");
-
-  meteor.className = "meteor";
-
-  meteor.style.left = (Math.random() * 120 + 10) + "%";
-  meteor.style.top = (Math.random() * 65 - 10) + "%";
-
-  meteors.appendChild(meteor);
-
-  setTimeout(() => {
-    meteor.remove();
-  }, 1300);
+/* METEORS */
+function shootMeteor(){
+ const m=document.createElement("div");
+ m.className="meteor";
+ m.style.left=(Math.random()*110+5)+"%";
+ m.style.top=(Math.random()*70-10)+"%";
+ document.getElementById("meteor-layer").appendChild(m);
+ setTimeout(()=>m.remove(),1300);
 }
 
-
-/* MEMORY DATA */
-
-const memories = {
-
-  AAI: {
-    title: "For Our Aai ❤️",
-    text: "The heart of our universe. Your love makes every corner of our galaxy feel like home. You are the warmth behind every beautiful memory."
-  },
-
-  BABA: {
-    title: "For Our Baba 💙",
-    text: "Our strength, our guide, and the star that always lights our way. Your support makes our universe stronger every day."
-  },
-
-  CHILDHOOD: {
-    title: "Our Childhood 🌟",
-    text: "A collection of little moments, endless laughter, silly fights and memories that will stay with us forever."
-  },
-
-  FAMILY: {
-    title: "Our Beautiful Family 🌌",
-    text: "Different souls, one beautiful universe. Through every moment, every journey and every memory, together we are home."
-  }
-
+/* PHOTO CONFIGURATION
+   Put your photos in a folder named "images".
+   Change the filenames below to match your actual photos.
+*/
+const memories={
+ AAI:{
+  title:"A Universe Made of Love ❤️",
+  description:"Every little moment with Aai is a beautiful star in our universe.",
+  photos:[
+   {src:"images/aai1.jpg",caption:"Our beautiful Aai ❤️"},
+   {src:"images/aai2.jpg",caption:"A memory to treasure ✨"},
+   {src:"images/aai3.jpg",caption:"A little piece of happiness 💗"},
+   {src:"images/aai4.jpg",caption:"Forever special 🌷"}
+  ]
+ },
+ BABA:{
+  title:"Our Guiding Star 💙",
+  description:"Every journey feels brighter with Baba by our side.",
+  photos:[
+   {src:"images/baba1.jpg",caption:"Our dear Baba 💙"},
+   {src:"images/baba2.jpg",caption:"A beautiful memory ✨"},
+   {src:"images/baba3.jpg",caption:"Always our strength 🌌"},
+   {src:"images/baba4.jpg",caption:"Forever in our hearts"}
+  ]
+ },
+ CHILDHOOD:{
+  title:"Back to Our Little Universe 🌟",
+  description:"The silly moments, the laughter, the little adventures and memories we never want to forget.",
+  photos:[
+   {src:"images/childhood1.jpg",caption:"The good old days 🌟"},
+   {src:"images/childhood2.jpg",caption:"Little moments, big memories"},
+   {src:"images/childhood3.jpg",caption:"Endless laughter 💫"},
+   {src:"images/childhood4.jpg",caption:"Memories forever ❤️"}
+  ]
+ }
 };
 
-
-/* ELEMENTS */
-
-const intro = document.getElementById("intro");
-const journey = document.getElementById("journey");
-const burst = document.getElementById("burst");
-const ring = document.getElementById("ring");
-const memoryScene = document.getElementById("memory-scene");
-
-let timers = [];
-
-
-/* OPEN A PLANET */
-
-document.querySelectorAll(".planet").forEach(planet => {
-
-  planet.addEventListener("click", () => {
-
-    const key = planet.dataset.memory;
-
-    const memory = memories[key];
-
-    if (!memory) return;
-
-    document.getElementById("memory-title").textContent =
-      memory.title;
-
-    document.getElementById("memory-text").textContent =
-      memory.text;
-
-    journey.classList.remove("show");
-
-    memoryScene.classList.add("open");
-
-  });
-
-});
-
-
-/* BACK TO GALAXY */
-
-document.getElementById("back-galaxy").addEventListener("click", () => {
-
-  memoryScene.classList.remove("open");
-
-  journey.classList.add("show");
-
-});
-
-
 /* AUTOMATIC GALAXY OPENING */
+let openingTimers=[];
+function startOpening(){
+ openingTimers.forEach(clearTimeout);
+ openingTimers=[];
+ document.getElementById("galaxy").classList.remove("show");
+ document.getElementById("intro").style.opacity="1";
+ document.getElementById("meteor-layer").innerHTML="";
+ document.getElementById("explosion").classList.remove("go");
 
-function clearTimers() {
+ for(let i=0;i<25;i++){
+  openingTimers.push(setTimeout(shootMeteor,i*150));
+ }
 
-  timers.forEach(timer => clearTimeout(timer));
+ openingTimers.push(setTimeout(()=>{
+  const e=document.getElementById("explosion");
+  e.classList.remove("go");
+  void e.offsetWidth;
+  e.classList.add("go");
+ },2100));
 
-  timers = [];
-
+ openingTimers.push(setTimeout(()=>{
+  document.getElementById("intro").style.opacity="0";
+  document.getElementById("galaxy").classList.add("show");
+ },3500));
 }
 
+/* TRAVEL TO PLANET */
+let travelTimer;
+function travelTo(planet){
+ const ship=document.getElementById("ship");
+ const message=document.getElementById("travel-message");
+ const galaxy=document.getElementById("galaxy");
 
-function startJourney() {
+ galaxy.classList.remove("show");
+ ship.classList.remove("fly");
+ void ship.offsetWidth;
+ ship.classList.add("fly");
 
-  clearTimers();
+ message.textContent="🚀 Travelling to "+planet+"...";
+ message.classList.add("show");
 
-  memoryScene.classList.remove("open");
+ for(let i=0;i<12;i++){
+  setTimeout(shootMeteor,i*100);
+ }
 
-  journey.classList.remove("show");
-
-  intro.style.opacity = "1";
-
-  burst.classList.remove("active");
-
-  ring.classList.remove("active");
-
-  meteors.innerHTML = "";
-
-  /* Shoot 22 meteors */
-
-  for (let i = 0; i < 22; i++) {
-
-    timers.push(
-      setTimeout(shootMeteor, i * 150)
-    );
-
-  }
-
-  /* Explosion */
-
-  timers.push(setTimeout(() => {
-
-    burst.classList.remove("active");
-    ring.classList.remove("active");
-
-    void burst.offsetWidth;
-
-    burst.classList.add("active");
-    ring.classList.add("active");
-
-  }, 1900));
-
-
-  /* Enter family galaxy */
-
-  timers.push(setTimeout(() => {
-
-    intro.style.opacity = "0";
-
-    journey.classList.add("show");
-
-  }, 3500));
-
+ clearTimeout(travelTimer);
+ travelTimer=setTimeout(()=>{
+  ship.classList.remove("fly");
+  message.classList.remove("show");
+  openGallery(planet);
+ },2100);
 }
 
+/* OPEN PLANET MEMORY GALLERY */
+function openGallery(planet){
+ const data=memories[planet];
+ if(!data)return;
 
-/* REPLAY BUTTON */
+ document.getElementById("gallery-title").textContent=data.title;
+ document.getElementById("gallery-description").textContent=data.description;
 
-document.getElementById("restart").addEventListener("click", startJourney);
+ const grid=document.getElementById("photo-grid");
+ grid.innerHTML="";
 
+ data.photos.forEach((photo,index)=>{
+  const card=document.createElement("div");
+  card.className="photo-card";
+  card.style.animationDelay=(index*.15)+"s";
 
-/* START WHEN PAGE IS READY */
+  const img=document.createElement("img");
+  img.src=photo.src;
+  img.alt=photo.caption;
+  img.loading="lazy";
 
-if (document.readyState === "loading") {
+  img.onerror=()=>{
+   img.alt="Photo missing: "+photo.src;
+   img.style.objectFit="contain";
+   img.style.padding="20px";
+   img.style.color="white";
+   img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="#101b3d"/><text x="50%" y="45%" fill="#fff" text-anchor="middle" font-size="20">Add your photo here</text><text x="50%" y="58%" fill="#9ddcff" text-anchor="middle" font-size="14">'+photo.src+'</text></svg>'
+   );
+   img.onclick=null;
+  };
 
-  document.addEventListener("DOMContentLoaded", startJourney, { once: true });
+  img.onclick=()=>showPhoto(img.src);
 
-} else {
+  const caption=document.createElement("p");
+  caption.textContent=photo.caption;
 
-  startJourney();
+  card.appendChild(img);
+  card.appendChild(caption);
+  grid.appendChild(card);
+ });
 
+ document.getElementById("gallery").classList.add("open");
 }
 
+/* PHOTO LIGHTBOX */
+function showPhoto(src){
+ document.getElementById("lightbox-image").src=src;
+ document.getElementById("lightbox").classList.add("open");
+}
+function closePhoto(){
+ document.getElementById("lightbox").classList.remove("open");
+}
+
+/* RETURN TO GALAXY */
+function returnToGalaxy(){
+ document.getElementById("gallery").classList.remove("open");
+ document.getElementById("galaxy").classList.add("show");
+}
+
+/* ESCAPE KEY */
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")closePhoto();
+});
+
+/* START AUTOMATICALLY */
+if(document.readyState==="loading"){
+ document.addEventListener("DOMContentLoaded",startOpening,{once:true});
+}else{
+ startOpening();
+}
 </script>
-
 </body>
 </html>
